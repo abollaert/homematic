@@ -76,6 +76,6 @@ public final class CCUImpl implements CCU {
 		ccu.connect();
 		
 		final Dimmer d = ccu.getDimmer(Dimmer.Instance.BUREAU);
-		d.setPercentage(50);
+		d.setLevel(50);
 	}
 }

@@ -35,7 +35,7 @@ public final class DimmerImpl extends AbstractDevice implements Dimmer {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final double getPercentage() throws IOException {
+	public final double getLevel() throws IOException {
 		try {
 			System.out.println(this.getChannel().getParamSet(this.getAddress(), "VALUES", Type.WIRED));
 		} catch (Exception e) {
@@ -61,7 +61,7 @@ public final class DimmerImpl extends AbstractDevice implements Dimmer {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final void setPercentage(double percentage) throws IOException {
+	public final void setLevel(double percentage) throws IOException {
 		if (percentage < 0) {
 			percentage = 0;
 		}
