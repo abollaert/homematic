@@ -1,15 +1,14 @@
 package be.techniquez.homeautomation.homematic.impl;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import be.techniquez.homeautomation.homematic.api.CCU;
+import be.techniquez.homeautomation.homematic.api.Device;
 import be.techniquez.homeautomation.homematic.api.Dimmer;
-import be.techniquez.homeautomation.homematic.impl.channel.CCUChannel;
 import be.techniquez.homeautomation.homematic.impl.channel.CCUChannelImpl;
-import be.techniquez.homeautomation.homematic.impl.device.DimmerImpl;
 
 /**
  * CCU implementation, uses XMLRPC.
@@ -22,7 +21,7 @@ public final class CCUImpl implements CCU {
 	private final CCUChannel channel;
 	
 	/** The dimmers. */
-	private final Map<Dimmer.Instance, Dimmer> dimmers = new HashMap<>();
+	private final List<Dimmer> dimmers = new ArrayList<>();
 	
 	/**
 	 * Create a new instance.
@@ -31,13 +30,6 @@ public final class CCUImpl implements CCU {
 	 */
 	public CCUImpl(final String address) {
 		this.channel = new CCUChannelImpl(address);
-		
-		this.dimmers.put(Dimmer.Instance.BUREAU, new DimmerImpl("Dimmer bureau", "JEQ0545914:3", this.channel));
-		this.dimmers.put(Dimmer.Instance.EETTAFEL, new DimmerImpl("Dimmer eettafel", "JEQ0546057:3", this.channel));
-		this.dimmers.put(Dimmer.Instance.KEUKENTAFEL, new DimmerImpl("Dimmer keukentafel", "JEQ0714786:3", this.channel));
-		this.dimmers.put(Dimmer.Instance.LIVINGRAAM, new DimmerImpl("Dimmer livingraam", "JEQ0714732:3", this.channel));
-		this.dimmers.put(Dimmer.Instance.ZETEL, new DimmerImpl("Dimmer zetel", "JEQ0545894:3", this.channel));
-		this.dimmers.put(Dimmer.Instance.ZOLDER, new DimmerImpl("Dimmer zolder", "JEQ0714817:3", this.channel));
 	}
 	
 	/**
@@ -45,23 +37,36 @@ public final class CCUImpl implements CCU {
 	 */
 	@Override
 	public final void connect() throws IOException {
-		this.channel.connect();
+		final List<Device> devices = this.channel.getDevices();
+		
+		devices.stream()
+			   .forEach((device) -> {
+				   if (device instanceof Dimmer) {
+					   this.dimmers.add((Dimmer)device);
+				   }
+			   });
+		
+		this.dimmers.stream()
+					.forEach((dimmer) -> System.out.println(dimmer.getName()));
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final Dimmer getDimmer(Dimmer.Instance dimmer) {
-		return this.dimmers.get(dimmer);
+	public final Dimmer getDimmer(final String name) {
+		return this.dimmers.stream()
+						   .filter((dimmer) -> dimmer.getName() != null && dimmer.getName().equals(name))
+						   .findFirst()
+						   .orElse(null);
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final Collection<Dimmer> getDimmers() {
-		return this.dimmers.values();
+	public final List<Dimmer> getDimmers() {
+		return Collections.unmodifiableList(this.dimmers);
 	}
 	
 	/**
@@ -74,8 +79,5 @@ public final class CCUImpl implements CCU {
 	public static void main(String[] args) throws Exception {
 		final CCU ccu = new CCUImpl("homematic");
 		ccu.connect();
-		
-		final Dimmer d = ccu.getDimmer(Dimmer.Instance.BUREAU);
-		d.setLevel(50);
 	}
 }

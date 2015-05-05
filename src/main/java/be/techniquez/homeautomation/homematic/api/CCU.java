@@ -31,5 +31,5 @@ public interface CCU {
 	 * 
 	 * @return		The dimmer.
 	 */
-	Dimmer getDimmer(Dimmer.Instance dimmer);
+	Dimmer getDimmer(final String name);
 }

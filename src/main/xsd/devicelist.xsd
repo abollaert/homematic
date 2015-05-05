@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="deviceList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="device"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="device">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="channel"/>
+      </xs:sequence>
+      <xs:attribute name="address" use="required" type="xs:NCName"/>
+      <xs:attribute name="device_type" use="required" type="xs:NCName"/>
+      <xs:attribute name="interface" use="required" type="xs:NCName"/>
+      <xs:attribute name="ise_id" use="required" type="xs:integer"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="ready_config" use="required" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="channel">
+    <xs:complexType>
+      <xs:attribute name="address" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="aes_available" use="required" type="xs:boolean"/>
+      <xs:attribute name="direction" use="required" type="xs:NCName"/>
+      <xs:attribute name="group_partner" use="required"/>
+      <xs:attribute name="index" use="required" type="xs:integer"/>
+      <xs:attribute name="ise_id" use="required" type="xs:integer"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="operate" use="required" type="xs:boolean"/>
+      <xs:attribute name="parent_device" use="required" type="xs:integer"/>
+      <xs:attribute name="ready_config" use="required" type="xs:boolean"/>
+      <xs:attribute name="transmission_mode" use="required" type="xs:NCName"/>
+      <xs:attribute name="type" use="required" type="xs:integer"/>
+      <xs:attribute name="visible" use="required" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
