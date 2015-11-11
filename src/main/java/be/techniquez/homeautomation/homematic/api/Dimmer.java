@@ -12,12 +12,12 @@ public interface Dimmer extends Device {
 	 * 
 	 * @param 	percentage		The percentage to dim to. Between 0 and 100.
 	 */
-	void setState(final int percentage);
+	void setDimmerValue(final int percentage);
 	
 	/**
 	 * Returns the percentage dimmed.
 	 * 
 	 * @return	The percentage dimmed.
 	 */
-	int getState();
+	int getDimmerValue();
 }

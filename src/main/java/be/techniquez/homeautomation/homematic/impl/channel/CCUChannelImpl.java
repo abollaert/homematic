@@ -18,13 +18,26 @@ import be.techniquez.homeautomation.homematic.impl.CCUChannel;
 import be.techniquez.homeautomation.homematic.impl.channel.XMLAPIURLBuilder.Endpoint;
 import be.techniquez.homeautomation.homematic.impl.device.DeviceType;
 import be.techniquez.homeautomation.homematic.xmlapi.devicelist.DeviceList;
+import be.techniquez.homeautomation.homematic.xmlapi.state.State;
 
+/**
+ * CCU channel implementation.
+ * 
+ * @author alex
+ */
 public final class CCUChannelImpl implements CCUChannel {
 	
+	/** Logger instance. */
 	private static final Logger logger = Logger.getLogger(CCUChannelImpl.class.getName());
 
-	/** The package name. */
-	private static final String PACKAGE_DEVICELIST = "be.techniquez.homeautomation.homematic.xmlapi.devicelist";
+	/** The package name where we keep the device list JAXB classes. */
+	private static final String PACKAGE_DEVICELIST = DeviceList.class.getPackage().getName();
+	
+	/** The package name with the state model. */
+	private static final String PACKAGE_STATE = State.class.getPackage().getName();
+	
+	/** The channel ID parameter. */
+	private static final String PARAMETER_CHANNEL_ID = "channel_id";
 	
 	/** The default port. */
 	private static final int DEFAULT_PORT = 80;
@@ -73,7 +86,7 @@ public final class CCUChannelImpl implements CCUChannel {
 				if (xmlDevices != null) {
 					return xmlDevices.getDevice().stream()
 										  		 .filter(xml -> DeviceType.forName(xml.getDeviceType()) != null)
-										  		 .map(xml -> DeviceType.forName(xml.getDeviceType()).parse(xml))
+										  		 .map(xml -> DeviceType.forName(xml.getDeviceType()).parse(xml, this))
 										  		 .collect(Collectors.toList());
 				}
 			}
@@ -102,5 +115,29 @@ public final class CCUChannelImpl implements CCUChannel {
 	@Override
 	public final int getPort() {
 		return this.port;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public final State getState(final int channelId) throws IOException {
+		final URL url = XMLAPIURLBuilder.forHost(this.hostname, this.port)
+														 .endpoint(Endpoint.GET_STATE)
+														 .parameter(PARAMETER_CHANNEL_ID, channelId)
+														 .build();
+		
+		try (final InputStream stream = url.openStream()) {
+			final JAXBContext jaxbContext = JAXBContext.newInstance(PACKAGE_STATE);
+			final Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+			
+			return (State)unmarshaller.unmarshal(stream);
+		} catch (JAXBException e) {
+			if (logger.isLoggable(Level.WARNING)) {
+				logger.log(Level.WARNING, "JAXB error while parsing state : [" + e.getMessage() + "]", e);
+			}
+			
+			throw new IllegalStateException("JAXB error while parsing state : [" + e.getMessage() + "]", e);
+		}
 	}
 }

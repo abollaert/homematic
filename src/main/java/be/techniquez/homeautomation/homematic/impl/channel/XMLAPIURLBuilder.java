@@ -52,7 +52,8 @@ final class XMLAPIURLBuilder {
 	 */
 	enum Endpoint {
 		DEVICELIST("devicelist.cgi"),
-		STATECHANGE("statechange.cgi");
+		STATECHANGE("statechange.cgi"),
+		GET_STATE("state.cgi");
 		
 		/** The CGI url. */
 		private final String cgi;
@@ -140,7 +141,9 @@ final class XMLAPIURLBuilder {
 	 * @param 	name		The name.
 	 * @param 	value		The value.
 	 */
-	final <T> void parameter(final String name, final T value) {
+	final <T> XMLAPIURLBuilder parameter(final String name, final T value) {
 		this.parameters.put(name, Objects.requireNonNull(value).toString());
+		
+		return this;
 	}
 }

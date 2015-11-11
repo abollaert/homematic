@@ -1,6 +1,7 @@
 package be.techniquez.homeautomation.homematic.impl.device;
 
 import be.techniquez.homeautomation.homematic.api.Dimmer;
+import be.techniquez.homeautomation.homematic.impl.CCUChannel;
 import be.techniquez.homeautomation.homematic.xmlapi.devicelist.Device;
 
 /**
@@ -13,17 +14,15 @@ public final class DimmerImpl extends AbstractDevice implements Dimmer {
 	/** Indicates the channel is a receiver. */
 	private static final String DIRECTION_RECEIVER = "RECEIVER";
 	
-	/** The output channel ID. */
-	private final int outputChannelId;
-	
 	/**
 	 * Creates a new dimmer based on the given device definition.
 	 * 
 	 * @param 		xmlDevice		The XML definition.
+	 * @param		ccuChannel		The channel.
 	 * 
 	 * @return		The {@link Dimmer} device.
 	 */
-	public static final Dimmer create(final Device xmlDevice) {
+	public static final Dimmer create(final Device xmlDevice, final CCUChannel ccuChannel) {
 		final String deviceName = xmlDevice.getName();
 		final String serial = xmlDevice.getAddress();
 		final int outputChannelId = xmlDevice.getChannel().stream()
@@ -32,51 +31,44 @@ public final class DimmerImpl extends AbstractDevice implements Dimmer {
 														  .get()
 														  .getIseId().intValue();
 		
-		return new DimmerImpl(deviceName, serial, outputChannelId);
+		return new DimmerImpl(ccuChannel, deviceName, serial, outputChannelId);
 	}
 
 	/**
 	 * Create a new instance.
 	 * 
 	 * @param 	name	The name.
+	 * @param	channel	The CCU channel.
 	 */
-	public DimmerImpl(final String name, final String serialNumber, final int outputChannelId) {
-		super(name, serialNumber);
-		
-		this.outputChannelId = outputChannelId;
+	public DimmerImpl(final CCUChannel channel, final String name, final String serialNumber, final int outputChannelId) {
+		super(channel, ChannelType.LEVEL, 3, outputChannelId, name, serialNumber);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final void setState(final int percentage) {
+	public final void setDimmerValue(final int percentage) {
 		if (percentage < 0 || percentage > 100) {
 			throw new IllegalArgumentException("Percentage should be between 0 and 100, you specified [" + percentage + "]");
 		}
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public final String toString() {
-		final StringBuilder builder = new StringBuilder("Dimmer ");
-		
-		builder.append("name : [").append(this.getName()).append("], ");
-		builder.append("serial number [").append(this.getSerialNumber()).append("], ");
-		builder.append("output channel ID [").append(this.outputChannelId).append("]");
-		
-		return builder.toString();
-		
-	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final int getState() {
-		// TODO Auto-generated method stub
-		return 0;
+	public final int getDimmerValue() {
+		final double percentageFraction = this.getState((string) -> Double.parseDouble(string));
+		
+		final int percentage = (int)(percentageFraction * 100.0);
+		
+		if (percentage < 0) {
+			return 0;
+		} else if (percentage > 100) {
+			return 100;
+		} else {
+			return percentage;
+		}
 	}
 }

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import be.techniquez.homeautomation.homematic.api.CCU;
 import be.techniquez.homeautomation.homematic.api.Device;
@@ -16,6 +18,9 @@ import be.techniquez.homeautomation.homematic.impl.channel.CCUChannelImpl;
  * @author alex
  */
 public final class CCUImpl implements CCU {
+	
+	/** Logger instance. */
+	private static final Logger logger = Logger.getLogger(CCUImpl.class.getName());
 
 	/** The channel. */
 	private final CCUChannel channel;
@@ -37,7 +42,15 @@ public final class CCUImpl implements CCU {
 	 */
 	@Override
 	public final void connect() throws IOException {
+		if (logger.isLoggable(Level.INFO)) {
+			logger.log(Level.INFO, "CCU [" + this.channel.getHostname() + ":" + this.channel.getPort() + "] : loading devices.");
+		}
+		
 		final List<Device> devices = this.channel.getDevices();
+		
+		if (logger.isLoggable(Level.INFO)) {
+			logger.log(Level.INFO, "Device list received, processing.");
+		}
 		
 		devices.stream()
 			   .forEach((device) -> {
@@ -46,8 +59,12 @@ public final class CCUImpl implements CCU {
 				   }
 			   });
 		
+		if (logger.isLoggable(Level.INFO)) {
+			logger.log(Level.INFO, "Found : [" + this.dimmers.size() + "] dimmers.");
+		}
+		
 		this.dimmers.stream()
-					.forEach((dimmer) -> System.out.println(dimmer));
+					.forEach((dimmer) -> System.out.println(dimmer.getDimmerValue()));
 	}
 	
 	/**

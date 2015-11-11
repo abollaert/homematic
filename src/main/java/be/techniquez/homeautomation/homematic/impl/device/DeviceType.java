@@ -1,6 +1,7 @@
 package be.techniquez.homeautomation.homematic.impl.device;
 
 import be.techniquez.homeautomation.homematic.api.Device;
+import be.techniquez.homeautomation.homematic.impl.CCUChannel;
 
 /**
  * The device type.
@@ -8,7 +9,7 @@ import be.techniquez.homeautomation.homematic.api.Device;
  * @author alex
  */
 public enum DeviceType {
-	DIMMER("HMW-LC-Dim1L-DR", (xml) -> DimmerImpl.create(xml));
+	DIMMER("HMW-LC-Dim1L-DR", (xml, channel) -> DimmerImpl.create(xml, channel));
 	
 	/** The typeName. */
 	private final String typeName;
@@ -48,12 +49,13 @@ public enum DeviceType {
 	 * Parses the device if possible, returns <code>null</code> if this type is not supported.
 	 * 
 	 * @param 		xmlDevice		The XML device.
+	 * @param		channel			The channel.
 	 * 
 	 * @return		The parsed device, <code>null</code> if not supported.
 	 */
-	public final Device parse(final be.techniquez.homeautomation.homematic.xmlapi.devicelist.Device xmlDevice) {
+	public final Device parse(final be.techniquez.homeautomation.homematic.xmlapi.devicelist.Device xmlDevice, final CCUChannel channel) {
 		if (xmlDevice.getDeviceType().equals(this.typeName)) {
-			return this.factory.createDevice(xmlDevice);
+			return this.factory.createDevice(xmlDevice, channel);
 		}
 		
 		return null;
