@@ -2,12 +2,18 @@ package be.techniquez.homeautomation.homematic.impl.channel;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.Socket;
 import java.net.URL;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.ThreadFactory;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import javax.net.SocketFactory;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -41,12 +47,32 @@ public final class CCUChannelImpl implements CCUChannel {
 
 	/** The default port. */
 	private static final int DEFAULT_PORT = 80;
+	
+	/** The event port. */
+	private static final int DEFAULT_EVENT_PORT = 2000;
 
 	/** The host name of the CCU. */
 	private final String hostname;
 
 	/** The port the API is running on. */
 	private final int port;
+	
+	/** The event port. */
+	private final int eventPort;
+	
+	/** The event socket. */
+	private Socket eventSocket;
+	
+	/** The event reader. */
+	private final ExecutorService eventReader = Executors.newSingleThreadExecutor((runnable) -> {
+		final Thread t = new Thread(runnable, "CCU channel : event reader thread");
+		t.setDaemon(true);
+		
+		return t;
+	});
+
+	/** The event reader future. */
+	private Future<?> eventReaderFuture;
 
 	/**
 	 * Create a new instance.
@@ -56,9 +82,10 @@ public final class CCUChannelImpl implements CCUChannel {
 	 * @param port
 	 *            The port.
 	 */
-	public CCUChannelImpl(final String hostname, final int port) {
+	public CCUChannelImpl(final String hostname, final int port, final int eventPort) {
 		this.hostname = hostname;
 		this.port = port;
+		this.eventPort = eventPort;
 	}
 
 	/**
@@ -68,7 +95,7 @@ public final class CCUChannelImpl implements CCUChannel {
 	 *            The hostname.
 	 */
 	public CCUChannelImpl(final String hostname) {
-		this(hostname, DEFAULT_PORT);
+		this(hostname, DEFAULT_PORT, DEFAULT_EVENT_PORT);
 	}
 
 	/**
@@ -150,6 +177,54 @@ public final class CCUChannelImpl implements CCUChannel {
 			}
 
 			throw new IllegalStateException("Error while parsing : [" + e.getMessage() + "]", e);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public final void connect() throws IOException {
+		final SocketFactory socketFactory = SocketFactory.getDefault();
+		this.eventSocket = socketFactory.createSocket(this.hostname, this.eventPort);
+		
+		this.eventReaderFuture = this.eventReader.submit(() -> {
+			try (final InputStream stream = this.eventSocket.getInputStream()) {
+				final byte[] buffer = new byte[1024];
+				int bytesRead = 0;
+				
+				while (!Thread.currentThread().isInterrupted() && bytesRead != -1) {
+					bytesRead = stream.read(buffer);
+					
+					if (bytesRead != -1) {
+						System.out.println(new String(buffer));
+					}
+				}
+			} catch (IOException e) {
+				if (!(e.getMessage().equals("Socket closed"))) {
+					if (logger.isLoggable(Level.WARNING)) {
+						logger.log(Level.WARNING, "IO error while closing event input stream : [" + e.getMessage() + "]", e);
+					}
+				}
+			}
+		});
+		
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public final void disconnect() throws IOException {
+		if (this.eventSocket != null) {
+			this.eventReaderFuture.cancel(true);
+			
+			if (!this.eventSocket.isClosed()) {
+				this.eventSocket.close();
+			}
+			
+			this.eventReaderFuture = null;
+			this.eventSocket = null;
 		}
 	}
 }

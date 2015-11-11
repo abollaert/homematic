@@ -51,6 +51,8 @@ public final class CCUImpl implements CCU {
 			logger.log(Level.INFO, "CCU [" + this.channel.getHostname() + ":" + this.channel.getPort() + "] : loading devices.");
 		}
 		
+		this.channel.connect();
+		
 		final List<Device> devices = this.channel.getDevices();
 		
 		if (logger.isLoggable(Level.INFO)) {
@@ -102,7 +104,7 @@ public final class CCUImpl implements CCU {
 		ccu.connect();
 		
 
-		ccu.getDimmers().stream()
+		/*ccu.getDimmers().stream()
 						.forEach((dimmer) -> { 
 							final int value = dimmer.getDimmerValue();
 							
@@ -130,7 +132,9 @@ public final class CCUImpl implements CCU {
 			}
 			
 			sw.setOn(on);
-		});
+		});*/
+		Thread.sleep(60000);
+		ccu.disconnect();
 		
 		
 	}
@@ -152,5 +156,13 @@ public final class CCUImpl implements CCU {
 				   .filter((switchDevice) -> switchDevice.getName() != null && switchDevice.getName().equals(name))
 				   .findFirst()
 				   .orElse(null);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public final void disconnect() throws IOException {
+		this.channel.disconnect();
 	}
 }

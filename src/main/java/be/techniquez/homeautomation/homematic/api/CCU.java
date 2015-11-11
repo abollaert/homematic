@@ -18,6 +18,13 @@ public interface CCU {
 	void connect() throws IOException;
 	
 	/**
+	 * Disconnect.
+	 * 
+	 * @throws 	IOException		If an IO error occurs.
+	 */
+	void disconnect() throws IOException;
+	
+	/**
 	 * Returns all the dimmers known to the system.
 	 * 
 	 * @return	The dimmers known to the system.

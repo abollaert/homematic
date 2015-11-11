@@ -54,4 +54,14 @@ public interface CCUChannel {
 	 * @return	The port.
 	 */
 	int getPort();
+	
+	/**
+	 * Connects the channel.
+	 */
+	void connect() throws IOException;
+	
+	/**
+	 * Disconnects the channel.
+	 */
+	void disconnect() throws IOException;
 }
