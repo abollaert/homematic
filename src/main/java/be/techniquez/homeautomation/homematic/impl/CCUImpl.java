@@ -62,9 +62,6 @@ public final class CCUImpl implements CCU {
 		if (logger.isLoggable(Level.INFO)) {
 			logger.log(Level.INFO, "Found : [" + this.dimmers.size() + "] dimmers.");
 		}
-		
-		this.dimmers.stream()
-					.forEach((dimmer) -> System.out.println(dimmer.getDimmerValue()));
 	}
 	
 	/**
@@ -96,5 +93,26 @@ public final class CCUImpl implements CCU {
 	public static void main(String[] args) throws Exception {
 		final CCU ccu = new CCUImpl("homematic");
 		ccu.connect();
+		
+		final Dimmer dimmerBureau = ccu.getDimmer("DIMMER_BUREAU");
+
+		ccu.getDimmers().stream()
+						.forEach((dimmer) -> { 
+							final int value = dimmer.getDimmerValue();
+							
+							dimmer.setDimmerValue(20);
+							
+							try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+								Thread.currentThread().interrupt();
+							}
+							
+							dimmer.setDimmerValue(value);
+						});
+		
+		Thread.sleep(1000);
+		
+		dimmerBureau.setDimmerValue(40);
 	}
 }

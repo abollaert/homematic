@@ -137,6 +137,27 @@ public abstract class AbstractDevice implements Device {
 	}
 	
 	/**
+	 * Sets the state.
+	 * 
+	 * @param 	state		The state to set.
+	 */
+	protected final void setState(final String state) {
+		if (logger.isLoggable(Level.INFO)) {
+			logger.log(Level.INFO, "Setting state for device : [" + this.serialNumber + "], channel [" + this.channelNumber + "], datapoint [" + this.channelType + "] to [" + state + "]");
+		}
+		
+		try {
+			this.channel.setState(this.iseId, state);
+		} catch (IOException e) {
+			if (logger.isLoggable(Level.WARNING)) {
+				logger.log(Level.WARNING, "IO error caught when setting state : [" + e.getMessage() + "]", e);
+			}
+			
+			throw new IllegalStateException("IO error caught when setting state : [" + e.getMessage() + "]", e);
+		}
+	}
+	
+	/**
 	 * {@inheritDoc}
 	 */
 	@Override

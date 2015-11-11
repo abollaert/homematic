@@ -32,6 +32,16 @@ public interface CCUChannel {
 	State getState(final int channelId) throws IOException;
 	
 	/**
+	 * Set the new value for the given channel.
+	 * 
+	 * @param 	channelId		The channel ID.
+	 * @param 	newValue		The new value.
+	 * 
+	 * @throws	IOException		In case of an IO error.
+	 */
+	void setState(final int channelId, final String newValue) throws IOException;
+	
+	/**
 	 * Returns the hostname.
 	 * 
 	 * @return	The hostname.

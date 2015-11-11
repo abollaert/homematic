@@ -2,8 +2,8 @@ package be.techniquez.homeautomation.homematic.impl.channel;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -32,7 +32,7 @@ final class XMLAPIURLBuilder {
 	private Endpoint endpoint;
 	
 	/** The parameters to be added. */
-	private final Map<String, String> parameters = new HashMap<>();
+	private final Map<String, String> parameters = new LinkedHashMap<>();
 	
 	/**
 	 * Create a new instance.
@@ -123,6 +123,10 @@ final class XMLAPIURLBuilder {
 		}
 		
 		final String url = urlBuilder.toString();
+		
+		if (logger.isLoggable(Level.INFO)) {
+			logger.log(Level.INFO, "Using URL [" + url + "]");
+		}
 		
 		try {
 			return new URL(url);

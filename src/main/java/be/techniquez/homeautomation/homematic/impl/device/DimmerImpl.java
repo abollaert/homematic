@@ -52,6 +52,10 @@ public final class DimmerImpl extends AbstractDevice implements Dimmer {
 		if (percentage < 0 || percentage > 100) {
 			throw new IllegalArgumentException("Percentage should be between 0 and 100, you specified [" + percentage + "]");
 		}
+		
+		final double percentageFraction = ((double)percentage) / 100;
+		
+		this.setState(String.valueOf(percentageFraction));
 	}
 
 	/**

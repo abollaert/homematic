@@ -1,8 +1,10 @@
 package be.techniquez.homeautomation.homematic.impl.channel;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
@@ -38,6 +40,12 @@ public final class CCUChannelImpl implements CCUChannel {
 	
 	/** The channel ID parameter. */
 	private static final String PARAMETER_CHANNEL_ID = "channel_id";
+	
+	/** The ISE ID parameter. */
+	private static final String PARAMETER_ISE_ID = "ise_id";
+	
+	/** The new value parameter. */
+	private static final String PARAMETER_NEW_VALUE = "new_value";
 	
 	/** The default port. */
 	private static final int DEFAULT_PORT = 80;
@@ -138,6 +146,33 @@ public final class CCUChannelImpl implements CCUChannel {
 			}
 			
 			throw new IllegalStateException("JAXB error while parsing state : [" + e.getMessage() + "]", e);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public final void setState(int channelId, String newValue) throws IOException {
+		final URL url = XMLAPIURLBuilder.forHost(this.hostname, this.port)
+				 .endpoint(Endpoint.STATECHANGE)
+				 .parameter(PARAMETER_ISE_ID, channelId)
+				 .parameter(PARAMETER_NEW_VALUE, newValue)
+				 .build();
+		
+		try (final InputStream stream = url.openStream(); final ByteArrayOutputStream byteOut = new ByteArrayOutputStream()) {
+			final byte[] buffer = new byte[1024];
+			
+			int read = stream.read(buffer);
+			
+			while (read != -1) {
+				byteOut.write(buffer, 0, read);
+				
+				read = stream.read(buffer);
+			}
+			
+			System.out.println(new String(byteOut.toByteArray(), StandardCharsets.US_ASCII));
+			
 		}
 	}
 }
