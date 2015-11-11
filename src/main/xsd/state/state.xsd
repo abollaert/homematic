@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="state">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="device"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="device">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="channel"/>
+      </xs:sequence>
+      <xs:attribute name="config_pending" use="required" type="xs:boolean"/>
+      <xs:attribute name="ise_id" use="required" type="xs:integer"/>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="sticky_unreach" use="required" type="xs:boolean"/>
+      <xs:attribute name="unreach" use="required" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="channel">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="datapoint"/>
+      </xs:sequence>
+      <xs:attribute name="ise_id" use="required" type="xs:integer"/>
+      <xs:attribute name="name" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="datapoint">
+    <xs:complexType>
+      <xs:attribute name="ise_id" use="required" type="xs:integer"/>
+      <xs:attribute name="name" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="timestamp" use="required" type="xs:integer"/>
+      <xs:attribute name="type" use="required" type="xs:NCName"/>
+      <xs:attribute name="value" use="required"/>
+      <xs:attribute name="valuetype" use="required" type="xs:integer"/>
+      <xs:attribute name="valueunit" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -3,38 +3,28 @@ package be.techniquez.homeautomation.homematic.impl.channel;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-
-
 import java.util.stream.Collectors;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-
-
-
-
-
 import be.techniquez.homeautomation.homematic.api.Device;
-import be.techniquez.homeautomation.homematic.api.Device.Type;
 import be.techniquez.homeautomation.homematic.impl.CCUChannel;
 import be.techniquez.homeautomation.homematic.impl.channel.XMLAPIURLBuilder.Endpoint;
-import be.techniquez.homeautomation.homematic.impl.device.DimmerImpl;
-import be.techniquez.homeautomation.homematic.xmlapi.DeviceList;
+import be.techniquez.homeautomation.homematic.impl.device.DeviceType;
+import be.techniquez.homeautomation.homematic.xmlapi.devicelist.DeviceList;
 
 public final class CCUChannelImpl implements CCUChannel {
 	
 	private static final Logger logger = Logger.getLogger(CCUChannelImpl.class.getName());
 
 	/** The package name. */
-	private static final String PACKAGE = "be.techniquez.homeautomation.homematic.xmlapi";
+	private static final String PACKAGE_DEVICELIST = "be.techniquez.homeautomation.homematic.xmlapi.devicelist";
 	
 	/** The default port. */
 	private static final int DEFAULT_PORT = 80;
@@ -65,13 +55,16 @@ public final class CCUChannelImpl implements CCUChannel {
 		this(hostname, DEFAULT_PORT);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public final List<Device> getDevices() throws IOException {
 		final URL url = XMLAPIURLBuilder.forHost(this.hostname, this.port)
 				 						.endpoint(Endpoint.DEVICELIST)
 				 						.build();
 		try {
-			final JAXBContext context = JAXBContext.newInstance(PACKAGE);
+			final JAXBContext context = JAXBContext.newInstance(PACKAGE_DEVICELIST);
 			final Unmarshaller unmarshaller = context.createUnmarshaller();
 			
 			try (final InputStream stream = url.openStream()) {
@@ -79,18 +72,8 @@ public final class CCUChannelImpl implements CCUChannel {
 				
 				if (xmlDevices != null) {
 					return xmlDevices.getDevice().stream()
-										  		 .filter((xmlDevice) -> Type.forName(xmlDevice.getDeviceType()) != null)
-										  		 .map((xmlDevice) -> {
-										  			 final Type t = Type.forName(xmlDevice.getDeviceType());
-											  
-										  			 switch (t) {
-										  			 	case DIMMER: {
-										  			 		return new DimmerImpl(xmlDevice.getName());
-										  			 	}
-										  			 }
-										  			 
-										  			 return null;
-										  		 })
+										  		 .filter(xml -> DeviceType.forName(xml.getDeviceType()) != null)
+										  		 .map(xml -> DeviceType.forName(xml.getDeviceType()).parse(xml))
 										  		 .collect(Collectors.toList());
 				}
 			}
@@ -105,16 +88,19 @@ public final class CCUChannelImpl implements CCUChannel {
 		return Collections.emptyList();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public String getHostname() {
-		// TODO Auto-generated method stub
-		return null;
+	public final String getHostname() {
+		return this.hostname;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public int getPort() {
-		// TODO Auto-generated method stub
-		return 0;
+	public final int getPort() {
+		return this.port;
 	}
-
 }

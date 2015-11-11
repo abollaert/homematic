@@ -37,21 +37,21 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.1</version>
 				</plugin>
-				
+
 				<plugin>
 					<groupId>org.apache.felix</groupId>
 					<artifactId>maven-bundle-plugin</artifactId>
 					<version>2.4.0</version>
 				</plugin>
-				
+
 				<plugin>
-		            <groupId>org.codehaus.mojo</groupId>
-		            <artifactId>jaxb2-maven-plugin</artifactId>
-		            <version>1.6</version>
-		        </plugin>
+					<groupId>org.jvnet.jaxb2.maven2</groupId>
+					<artifactId>maven-jaxb2-plugin</artifactId>
+					<version>0.12.3</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
-		
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -66,9 +66,9 @@
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				
+
 				<extensions>true</extensions>
-				
+
 				<configuration>
 					<instructions>
 						<Export-Package>
@@ -81,27 +81,41 @@
 					</instructions>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
-	            <groupId>org.codehaus.mojo</groupId>
-	            <artifactId>jaxb2-maven-plugin</artifactId>
-	            <executions>
-	                <execution>
-	                    <id>xjc</id>
-	                    <goals>
-	                        <goal>xjc</goal>
-	                    </goals>
-	                </execution>
-	            </executions>
-	            
-	            <configuration>
-	            	<sources>
-	            		<source>src/main/xsd</source>
-	            	</sources>
-	            	
-	                <packageName>be.techniquez.homeautomation.homematic.xmlapi</packageName>
-	            </configuration>
-	        </plugin>
+				<groupId>org.jvnet.jaxb2.maven2</groupId>
+				<artifactId>maven-jaxb2-plugin</artifactId>
+				
+				<executions>
+					<execution>
+						<id>generate-devicelist</id>
+
+						<goals>
+							<goal>generate</goal>
+						</goals>
+
+						<configuration>
+							<schemaDirectory>src/main/xsd/devicelist</schemaDirectory>
+							<generatePackage>be.techniquez.homeautomation.homematic.xmlapi.devicelist</generatePackage>
+							<generateDirectory>${project.build.directory}/generated-sources/xjc-devicelist</generateDirectory>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>generate-state</id>
+
+						<goals>
+							<goal>generate</goal>
+						</goals>
+
+						<configuration>
+							<schemaDirectory>src/main/xsd/state</schemaDirectory>
+							<generatePackage>be.techniquez.homeautomation.homematic.xmlapi.state</generatePackage>
+							<generateDirectory>${project.build.directory}/generated-sources/xjc-state</generateDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 </project>

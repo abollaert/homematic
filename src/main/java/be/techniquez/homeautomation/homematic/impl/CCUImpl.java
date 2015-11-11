@@ -47,7 +47,7 @@ public final class CCUImpl implements CCU {
 			   });
 		
 		this.dimmers.stream()
-					.forEach((dimmer) -> System.out.println(dimmer.getName()));
+					.forEach((dimmer) -> System.out.println(dimmer));
 	}
 	
 	/**

@@ -2,6 +2,10 @@ package be.techniquez.homeautomation.homematic.impl.channel;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,10 +16,11 @@ import java.util.logging.Logger;
  */
 final class XMLAPIURLBuilder {
 	
+	/** Logger instance. */
 	private static final Logger logger = Logger.getLogger(XMLAPIURLBuilder.class.getName());
 
 	/** The base URL. */
-	private static final String BASE = "/config/xmlapi/";
+	private static final String BASE = "/addons/xmlapi/";
 	
 	/** The CCUChannel. */
 	private final String hostname;
@@ -25,6 +30,9 @@ final class XMLAPIURLBuilder {
 	
 	/** The endpoint. */
 	private Endpoint endpoint;
+	
+	/** The parameters to be added. */
+	private final Map<String, String> parameters = new HashMap<>();
 	
 	/**
 	 * Create a new instance.
@@ -43,7 +51,8 @@ final class XMLAPIURLBuilder {
 	 * @author alex
 	 */
 	enum Endpoint {
-		DEVICELIST("devicelist.cgi");
+		DEVICELIST("devicelist.cgi"),
+		STATECHANGE("statechange.cgi");
 		
 		/** The CGI url. */
 		private final String cgi;
@@ -101,6 +110,17 @@ final class XMLAPIURLBuilder {
 		urlBuilder.append(BASE);
 		urlBuilder.append(this.endpoint.cgi);
 		
+		if (this.parameters.size() > 0) {
+			urlBuilder.append("?");
+			
+			for (final Iterator<String> parameterIterator = this.parameters.keySet().iterator(); parameterIterator.hasNext(); ) {
+				final String name = parameterIterator.next();
+				final String value = this.parameters.get(name);
+				
+				urlBuilder.append(name).append("=").append(value).append(parameterIterator.hasNext() ? "&" : "");
+			}
+		}
+		
 		final String url = urlBuilder.toString();
 		
 		try {
@@ -112,5 +132,15 @@ final class XMLAPIURLBuilder {
 			
 			throw new IllegalStateException("Malformed URL : " + url + "] : [" + e.getMessage() + "]", e);
 		}
+	}
+	
+	/**
+	 * Adds a parameter to the list.
+	 * 
+	 * @param 	name		The name.
+	 * @param 	value		The value.
+	 */
+	final <T> void parameter(final String name, final T value) {
+		this.parameters.put(name, Objects.requireNonNull(value).toString());
 	}
 }

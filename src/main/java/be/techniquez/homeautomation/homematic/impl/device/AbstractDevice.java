@@ -12,19 +12,32 @@ public abstract class AbstractDevice implements Device {
 	/** The device name. */
 	private final String name;
 	
+	/** The serial number. */
+	private final String serialNumber;
+	
 	/**
 	 * Create a new instance.
 	 * 
-	 * @param 	name		The name of the device.
+	 * @param 	name			The name of the device.
+	 * @param	serialNumber	The serial number of the device.
 	 */
-	protected AbstractDevice(final String name) {
+	protected AbstractDevice(final String name, final String serialNumber) {
 		this.name = name;
+		this.serialNumber = serialNumber;
 	}
 
 	/**
-	 * @return the name
+	 * {@inheritDoc}
 	 */
+	@Override
 	public final String getName() {
-		return name;
+		return this.name;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public final String getSerialNumber() {
+		return this.serialNumber;
 	}
 }
