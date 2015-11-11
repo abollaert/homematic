@@ -5,7 +5,7 @@ package be.techniquez.homeautomation.homematic.impl.device;
  * 
  * @author alex
  */
-public enum ChannelType {
+public enum DatapointType {
 
 	LEVEL("LEVEL");
 	
@@ -16,7 +16,7 @@ public enum ChannelType {
 	 * 
 	 * @param 	name		The name of the type.
 	 */
-	private ChannelType(final String name) {
+	private DatapointType(final String name) {
 		this.name = name;
 	}
 	

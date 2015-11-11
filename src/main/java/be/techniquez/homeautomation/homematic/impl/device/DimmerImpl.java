@@ -41,7 +41,7 @@ public final class DimmerImpl extends AbstractDevice implements Dimmer {
 	 * @param	channel	The CCU channel.
 	 */
 	public DimmerImpl(final CCUChannel channel, final String name, final String serialNumber, final int outputChannelId) {
-		super(channel, ChannelType.LEVEL, 3, outputChannelId, name, serialNumber);
+		super(channel, DatapointType.LEVEL, 3, outputChannelId, name, serialNumber);
 	}
 
 	/**

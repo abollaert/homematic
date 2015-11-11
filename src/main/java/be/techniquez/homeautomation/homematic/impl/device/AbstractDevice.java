@@ -44,7 +44,7 @@ public abstract class AbstractDevice implements Device {
 	private final int iseId;
 	
 	/** The type of channel. */
-	private final ChannelType channelType;
+	private final DatapointType channelType;
 	
 	/**
 	 * Create a new instance.
@@ -56,7 +56,7 @@ public abstract class AbstractDevice implements Device {
 	 * @param	channelNumber	The channel number.
 	 * @param	channelType		The type of the channel.
 	 */
-	protected AbstractDevice(final CCUChannel channel, final ChannelType channelType, final int channelNumber, final int iseId, final String name, final String serialNumber) {
+	protected AbstractDevice(final CCUChannel channel, final DatapointType channelType, final int channelNumber, final int iseId, final String name, final String serialNumber) {
 		this.channel = Objects.requireNonNull(channel);
 		this.name = Objects.requireNonNull(name);
 		this.serialNumber = Objects.requireNonNull(serialNumber);
