@@ -1,5 +1,8 @@
 package be.techniquez.homeautomation.homematic.impl.device;
 
+import java.util.Arrays;
+import java.util.List;
+
 import be.techniquez.homeautomation.homematic.api.Device;
 import be.techniquez.homeautomation.homematic.impl.CCUChannel;
 
@@ -9,13 +12,19 @@ import be.techniquez.homeautomation.homematic.impl.CCUChannel;
  * @author alex
  */
 public enum DeviceType {
-	DIMMER("HMW-LC-Dim1L-DR", (xml, channel) -> DimmerImpl.create(xml, channel));
+	DIMMER("HMW-LC-Dim1L-DR", (xml, channel) -> {
+		return Arrays.asList(new Device[] { DimmerImpl.create(xml, channel)});
+	}),
+	
+	SWITCH("HMW-IO-12-Sw7-DR", (xml, channel) -> {
+		return SwitchImpl.create(channel, xml);
+	});
 	
 	/** The typeName. */
 	private final String typeName;
 	
 	/** The type class. */
-	private final DeviceFactory<? extends Device> factory;
+	private final DeviceFactory factory;
 	
 	/**
 	 * Create a new instance.
@@ -23,7 +32,7 @@ public enum DeviceType {
 	 * @param 	typeName		The type name.
 	 * @param	factory			The factory.
 	 */
-	private DeviceType(final String typeName, final DeviceFactory<? extends Device> factory) {
+	private DeviceType(final String typeName, final DeviceFactory factory) {
 		this.typeName = typeName;
 		this.factory = factory;
 	}
@@ -53,9 +62,9 @@ public enum DeviceType {
 	 * 
 	 * @return		The parsed device, <code>null</code> if not supported.
 	 */
-	public final Device parse(final be.techniquez.homeautomation.homematic.xmlapi.devicelist.Device xmlDevice, final CCUChannel channel) {
+	public final List<Device> parse(final be.techniquez.homeautomation.homematic.xmlapi.devicelist.Device xmlDevice, final CCUChannel channel) {
 		if (xmlDevice.getDeviceType().equals(this.typeName)) {
-			return this.factory.createDevice(xmlDevice, channel);
+			return this.factory.createDevices(xmlDevice, channel);
 		}
 		
 		return null;

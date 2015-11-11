@@ -7,7 +7,8 @@ package be.techniquez.homeautomation.homematic.impl.device;
  */
 public enum DatapointType {
 
-	LEVEL("LEVEL");
+	LEVEL("LEVEL"),
+	STATE("STATE");
 	
 	private final String name;
 	

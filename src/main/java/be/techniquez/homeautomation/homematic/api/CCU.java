@@ -25,6 +25,13 @@ public interface CCU {
 	Collection<Dimmer> getDimmers();
 	
 	/**
+	 * Returns all the switches.
+	 * 
+	 * @return	The switches.
+	 */
+	Collection<Switch> getSwitches();
+	
+	/**
 	 * Returns the particular dimmer.
 	 * 
 	 * @param 		dimmer		The dimmer to return.
@@ -32,4 +39,13 @@ public interface CCU {
 	 * @return		The dimmer.
 	 */
 	Dimmer getDimmer(final String name);
+	
+	/**
+	 * Returns the particular switch.
+	 * 
+	 * @param 		name		The switch to return.
+	 * 
+	 * @return		The switch.
+	 */
+	Switch getSwitch(final String name);
 }

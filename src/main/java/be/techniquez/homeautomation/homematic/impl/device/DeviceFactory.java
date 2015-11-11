@@ -1,5 +1,7 @@
 package be.techniquez.homeautomation.homematic.impl.device;
 
+import java.util.List;
+
 import be.techniquez.homeautomation.homematic.api.Device;
 import be.techniquez.homeautomation.homematic.impl.CCUChannel;
 
@@ -9,7 +11,7 @@ import be.techniquez.homeautomation.homematic.impl.CCUChannel;
  * @author alex
  */
 @FunctionalInterface
-public interface DeviceFactory<T extends Device> {
+public interface DeviceFactory {
 	
 	/**
 	 * Creates a device based on the definition.
@@ -19,5 +21,5 @@ public interface DeviceFactory<T extends Device> {
 	 * 
 	 * @return	The device.
 	 */
-	T createDevice(final be.techniquez.homeautomation.homematic.xmlapi.devicelist.Device deviceDefinition, final CCUChannel ccuChannel);
+	List<Device> createDevices(final be.techniquez.homeautomation.homematic.xmlapi.devicelist.Device deviceDefinition, final CCUChannel ccuChannel);
 }

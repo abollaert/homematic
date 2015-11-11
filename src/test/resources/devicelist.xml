@@ -1,1 +1,560 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?><deviceList><device name='BEWEGINGSMELDER_VOORDEUR' address='JEQ0703057' ise_id='3163' interface='BidCos-RF' device_type='HM-Sen-MDIR-O' ready_config='true'><channel name='HM-Sen-MDIR-O JEQ0703057:1' type='17' address='JEQ0703057:1' ise_id='3185' direction='SENDER' parent_device='3163' index='1' group_partner='' aes_available='true' transmission_mode='AES' visible='true' ready_config='true' operate='true' /></device><device name='DIMMER_BUREAU' address='JEQ0545914' ise_id='1465' interface='BidCos-Wired' device_type='HMW-LC-Dim1L-DR' ready_config='true'><channel name='HMW-LC-Dim1L-DR JEQ0545914:1' type='32' address='JEQ0545914:1' ise_id='1479' direction='SENDER' parent_device='1465' index='1' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='HMW-LC-Dim1L-DR JEQ0545914:2' type='32' address='JEQ0545914:2' ise_id='1483' direction='SENDER' parent_device='1465' index='2' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_DIMMER_BUREAU' type='27' address='JEQ0545914:3' ise_id='1487' direction='RECEIVER' parent_device='1465' index='3' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /></device><device name='DIMMER_EETTAFEL' address='JEQ0546057' ise_id='1437' interface='BidCos-Wired' device_type='HMW-LC-Dim1L-DR' ready_config='true'><channel name='HMW-LC-Dim1L-DR JEQ0546057:1' type='32' address='JEQ0546057:1' ise_id='1451' direction='SENDER' parent_device='1437' index='1' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='HMW-LC-Dim1L-DR JEQ0546057:2' type='32' address='JEQ0546057:2' ise_id='1455' direction='SENDER' parent_device='1437' index='2' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_DIMMER_EETTAFEL' type='27' address='JEQ0546057:3' ise_id='1459' direction='RECEIVER' parent_device='1437' index='3' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /></device><device name='DIMMER_KEUKENTAFEL' address='JEQ0714786' ise_id='1743' interface='BidCos-Wired' device_type='HMW-LC-Dim1L-DR' ready_config='true'><channel name='HMW-LC-Dim1L-DR JEQ0714786:1' type='32' address='JEQ0714786:1' ise_id='1757' direction='SENDER' parent_device='1743' index='1' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='HMW-LC-Dim1L-DR JEQ0714786:2' type='32' address='JEQ0714786:2' ise_id='1761' direction='SENDER' parent_device='1743' index='2' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_DIMMER_KEUKENTAFEL' type='27' address='JEQ0714786:3' ise_id='1765' direction='RECEIVER' parent_device='1743' index='3' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /></device><device name='DIMMER_LIVINGRAAM' address='JEQ0714732' ise_id='1687' interface='BidCos-Wired' device_type='HMW-LC-Dim1L-DR' ready_config='true'><channel name='HMW-LC-Dim1L-DR JEQ0714732:1' type='32' address='JEQ0714732:1' ise_id='1701' direction='SENDER' parent_device='1687' index='1' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='HMW-LC-Dim1L-DR JEQ0714732:2' type='32' address='JEQ0714732:2' ise_id='1705' direction='SENDER' parent_device='1687' index='2' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_DIMMER_LIVINGRAAM' type='27' address='JEQ0714732:3' ise_id='1709' direction='RECEIVER' parent_device='1687' index='3' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /></device><device name='DIMMER_ZETEL' address='JEQ0545894' ise_id='1409' interface='BidCos-Wired' device_type='HMW-LC-Dim1L-DR' ready_config='true'><channel name='HMW-LC-Dim1L-DR JEQ0545894:1' type='32' address='JEQ0545894:1' ise_id='1423' direction='SENDER' parent_device='1409' index='1' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='HMW-LC-Dim1L-DR JEQ0545894:2' type='32' address='JEQ0545894:2' ise_id='1427' direction='SENDER' parent_device='1409' index='2' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_DIMMER_ZETEL' type='27' address='JEQ0545894:3' ise_id='1431' direction='RECEIVER' parent_device='1409' index='3' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /></device><device name='DIMMER_ZOLDER' address='JEQ0714817' ise_id='1715' interface='BidCos-Wired' device_type='HMW-LC-Dim1L-DR' ready_config='true'><channel name='HMW-LC-Dim1L-DR JEQ0714817:1' type='32' address='JEQ0714817:1' ise_id='1729' direction='SENDER' parent_device='1715' index='1' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='HMW-LC-Dim1L-DR JEQ0714817:2' type='32' address='JEQ0714817:2' ise_id='1733' direction='SENDER' parent_device='1715' index='2' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_DIMMER_ZOLDER' type='27' address='JEQ0714817:3' ise_id='1737' direction='RECEIVER' parent_device='1715' index='3' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /></device><device name='HM-CCU-1 System' address='System' ise_id='1389' interface='System' device_type='HM-CCU-1' ready_config='true'><channel name='Zentralennetzteil' type='17' address='System:1' ise_id='1390' direction='SENDER' parent_device='1389' index='1' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='Sabotagekontakt' type='17' address='System:2' ise_id='1406' direction='SENDER' parent_device='1389' index='2' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /></device><device name='IO_LICHTEN_1' address='JEQ0270307' ise_id='1493' interface='BidCos-Wired' device_type='HMW-IO-12-Sw7-DR' ready_config='true'><channel name='I_SCHAKELAAR_GARAGEDEUR' type='32' address='JEQ0270307:1' ise_id='1507' direction='SENDER' parent_device='1493' index='1' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_GARAGEPOORT' type='32' address='JEQ0270307:2' ise_id='1511' direction='SENDER' parent_device='1493' index='2' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_VOORRAADKAST' type='32' address='JEQ0270307:3' ise_id='1515' direction='SENDER' parent_device='1493' index='3' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_GANG' type='32' address='JEQ0270307:4' ise_id='1519' direction='SENDER' parent_device='1493' index='4' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_BUREAU' type='32' address='JEQ0270307:5' ise_id='1523' direction='SENDER' parent_device='1493' index='5' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_SLAAPKAMER_STRAAT_1' type='32' address='JEQ0270307:6' ise_id='1527' direction='SENDER' parent_device='1493' index='6' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_SLAAPKAMER_STRAAT_2' type='32' address='JEQ0270307:7' ise_id='1531' direction='SENDER' parent_device='1493' index='7' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_SLAAPKAMER_TUIN_1' type='32' address='JEQ0270307:8' ise_id='1535' direction='SENDER' parent_device='1493' index='8' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_SLAAPKAMER_TUIN_2' type='32' address='JEQ0270307:9' ise_id='1539' direction='SENDER' parent_device='1493' index='9' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_ZOLDER_4' type='32' address='JEQ0270307:10' ise_id='1543' direction='SENDER' parent_device='1493' index='10' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_GENERAL' type='32' address='JEQ0270307:11' ise_id='1547' direction='SENDER' parent_device='1493' index='11' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_ZOLDER_1' type='32' address='JEQ0270307:12' ise_id='1551' direction='SENDER' parent_device='1493' index='12' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_LICHT_GARAGE' type='26' address='JEQ0270307:13' ise_id='1555' direction='RECEIVER' parent_device='1493' index='13' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_LICHT_VOORDEUR' type='26' address='JEQ0270307:14' ise_id='1560' direction='RECEIVER' parent_device='1493' index='14' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_LICHT_OVERSTEEK' type='26' address='JEQ0270307:15' ise_id='1565' direction='RECEIVER' parent_device='1493' index='15' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_LICHT_TUINHUIS' type='26' address='JEQ0270307:16' ise_id='1570' direction='RECEIVER' parent_device='1493' index='16' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_LICHT_SPOTS_KEUKENKASTEN' type='26' address='JEQ0270307:17' ise_id='1575' direction='RECEIVER' parent_device='1493' index='17' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_LICHT_WC' type='26' address='JEQ0270307:18' ise_id='1580' direction='RECEIVER' parent_device='1493' index='18' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_LICHT_GANG' type='26' address='JEQ0270307:19' ise_id='1585' direction='RECEIVER' parent_device='1493' index='19' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /></device><device name='IO_LICHTEN_2' address='JEQ0270360' ise_id='1590' interface='BidCos-Wired' device_type='HMW-IO-12-Sw7-DR' ready_config='true'><channel name='I_SCHAKELAAR_ZOLDER' type='32' address='JEQ0270360:1' ise_id='1604' direction='SENDER' parent_device='1590' index='1' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_ZOLDER_BENEDEN' type='32' address='JEQ0270360:2' ise_id='1608' direction='SENDER' parent_device='1590' index='2' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_GARAGEDEUR_2' type='32' address='JEQ0270360:3' ise_id='1612' direction='SENDER' parent_device='1590' index='3' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_VRIJ_2' type='32' address='JEQ0270360:4' ise_id='1616' direction='SENDER' parent_device='1590' index='4' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_VRIJ_3' type='32' address='JEQ0270360:5' ise_id='1620' direction='SENDER' parent_device='1590' index='5' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_VRIJ_4' type='32' address='JEQ0270360:6' ise_id='1624' direction='SENDER' parent_device='1590' index='6' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_VRIJ_5' type='32' address='JEQ0270360:7' ise_id='1628' direction='SENDER' parent_device='1590' index='7' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_VRIJ_6' type='32' address='JEQ0270360:8' ise_id='1632' direction='SENDER' parent_device='1590' index='8' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_VRIJ_7' type='32' address='JEQ0270360:9' ise_id='1636' direction='SENDER' parent_device='1590' index='9' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_VRIJ_8' type='32' address='JEQ0270360:10' ise_id='1640' direction='SENDER' parent_device='1590' index='10' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_VRIJ_9' type='32' address='JEQ0270360:11' ise_id='1644' direction='SENDER' parent_device='1590' index='11' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_VRIJ_10' type='32' address='JEQ0270360:12' ise_id='1648' direction='SENDER' parent_device='1590' index='12' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_LICHT_LEDSTRIP_KEUKENKASTEN' type='26' address='JEQ0270360:13' ise_id='1652' direction='RECEIVER' parent_device='1590' index='13' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_LICHT_VOORRAADKAST' type='26' address='JEQ0270360:14' ise_id='1657' direction='RECEIVER' parent_device='1590' index='14' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_LICHT_SLAAPKAMER_STRAAT' type='26' address='JEQ0270360:15' ise_id='1662' direction='RECEIVER' parent_device='1590' index='15' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_LICHT_SLAAPKAMER_TUIN' type='26' address='JEQ0270360:16' ise_id='1667' direction='RECEIVER' parent_device='1590' index='16' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_LICHT_BADKAMER_1' type='26' address='JEQ0270360:17' ise_id='1672' direction='RECEIVER' parent_device='1590' index='17' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_LICHT_BADKAMER_2' type='26' address='JEQ0270360:18' ise_id='1677' direction='RECEIVER' parent_device='1590' index='18' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_LICHT_DOUCHE' type='26' address='JEQ0270360:19' ise_id='1682' direction='RECEIVER' parent_device='1590' index='19' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /></device><device name='IO_SCHAKELAAR_AANRECHT' address='IEQ0398119' ise_id='1771' interface='BidCos-Wired' device_type='HMW-IO-12-FM' ready_config='true'><channel name='I_SCHAKELAAR_AANRECHT_1' type='28' address='IEQ0398119:1' ise_id='1785' direction='SENDER' parent_device='1771' index='1' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_AANRECHT_2' type='28' address='IEQ0398119:2' ise_id='1789' direction='SENDER' parent_device='1771' index='2' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_AANRECHT_3' type='28' address='IEQ0398119:3' ise_id='1793' direction='SENDER' parent_device='1771' index='3' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_AANRECHT_4' type='28' address='IEQ0398119:4' ise_id='1797' direction='SENDER' parent_device='1771' index='4' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_TERUGMELDING_AANRECHT_1' type='28' address='IEQ0398119:5' ise_id='1801' direction='RECEIVER' parent_device='1771' index='5' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_TERUGMELDING_AANRECHT_2' type='28' address='IEQ0398119:6' ise_id='1805' direction='RECEIVER' parent_device='1771' index='6' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_TERUGMELDING_AANRECHT_3' type='28' address='IEQ0398119:7' ise_id='1809' direction='RECEIVER' parent_device='1771' index='7' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_TERUGMELDING_AANRECHT_4' type='28' address='IEQ0398119:8' ise_id='1813' direction='RECEIVER' parent_device='1771' index='8' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='UNUSED_IO_AANRECHT_1' type='28' address='IEQ0398119:9' ise_id='1817' direction='SENDER' parent_device='1771' index='9' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='UNUSED_IO_AANRECHT_2' type='28' address='IEQ0398119:10' ise_id='1821' direction='SENDER' parent_device='1771' index='10' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='UNUSED_IO_AANRECHT_3' type='28' address='IEQ0398119:11' ise_id='1825' direction='SENDER' parent_device='1771' index='11' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='UNUSED_IO_AANRECHT_4' type='28' address='IEQ0398119:12' ise_id='1829' direction='SENDER' parent_device='1771' index='12' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /></device><device name='IO_SCHAKELAAR_GANG' address='IEQ0398217' ise_id='1895' interface='BidCos-Wired' device_type='HMW-IO-12-FM' ready_config='true'><channel name='I_SCHAKELAAR_GANG_1' type='28' address='IEQ0398217:1' ise_id='1909' direction='SENDER' parent_device='1895' index='1' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_GANG_2' type='28' address='IEQ0398217:2' ise_id='1913' direction='SENDER' parent_device='1895' index='2' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_GANG_3' type='28' address='IEQ0398217:3' ise_id='1917' direction='SENDER' parent_device='1895' index='3' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_GANG_4' type='28' address='IEQ0398217:4' ise_id='1921' direction='SENDER' parent_device='1895' index='4' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_TERUGMELDING_GANG_1' type='28' address='IEQ0398217:5' ise_id='1925' direction='RECEIVER' parent_device='1895' index='5' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_TERUGMELDING_GANG_2' type='28' address='IEQ0398217:6' ise_id='1929' direction='RECEIVER' parent_device='1895' index='6' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_TERUGMELDING_GANG_3' type='28' address='IEQ0398217:7' ise_id='1933' direction='RECEIVER' parent_device='1895' index='7' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='UNUSED_GANG_5' type='28' address='IEQ0398217:8' ise_id='1937' direction='SENDER' parent_device='1895' index='8' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_TERUGMELDING_GANG_4' type='28' address='IEQ0398217:9' ise_id='1941' direction='RECEIVER' parent_device='1895' index='9' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='UNUSED_IO_GANG_2' type='28' address='IEQ0398217:10' ise_id='1945' direction='SENDER' parent_device='1895' index='10' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='UNUSED_IO_GANG_3' type='28' address='IEQ0398217:11' ise_id='1949' direction='SENDER' parent_device='1895' index='11' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='UNUSED_IO_GANG_4' type='28' address='IEQ0398217:12' ise_id='1953' direction='SENDER' parent_device='1895' index='12' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /></device><device name='IO_SCHAKELAAR_KEUKENMUUR' address='IEQ0398269' ise_id='1957' interface='BidCos-Wired' device_type='HMW-IO-12-FM' ready_config='true'><channel name='I_SCHAKELAAR_KEUKENMUUR_3' type='28' address='IEQ0398269:1' ise_id='1971' direction='SENDER' parent_device='1957' index='1' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_KEUKENMUUR_4' type='28' address='IEQ0398269:2' ise_id='1975' direction='SENDER' parent_device='1957' index='2' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_KEUKENMUUR_1' type='28' address='IEQ0398269:3' ise_id='1979' direction='SENDER' parent_device='1957' index='3' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_KEUKENMUUR_2' type='28' address='IEQ0398269:4' ise_id='1983' direction='SENDER' parent_device='1957' index='4' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_TERUGMELDING_KEUKENMUUR_3' type='28' address='IEQ0398269:5' ise_id='1987' direction='RECEIVER' parent_device='1957' index='5' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_TERUGMELDING_KEUKENMUUR_1' type='28' address='IEQ0398269:6' ise_id='1991' direction='RECEIVER' parent_device='1957' index='6' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_TERUGMELDING_KEUKENMUUR_4' type='28' address='IEQ0398269:7' ise_id='1995' direction='RECEIVER' parent_device='1957' index='7' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_TERUGMELDING_KEUKENMUUR_2' type='28' address='IEQ0398269:8' ise_id='1999' direction='RECEIVER' parent_device='1957' index='8' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='UNUSED_KEUKENMUUR_1' type='28' address='IEQ0398269:9' ise_id='2003' direction='SENDER' parent_device='1957' index='9' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='UNUSED_KEUKENMUUR_2' type='28' address='IEQ0398269:10' ise_id='2007' direction='SENDER' parent_device='1957' index='10' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='UNUSED_KEUKENMUUR_3' type='28' address='IEQ0398269:11' ise_id='2011' direction='SENDER' parent_device='1957' index='11' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='UNUSED_KEUKENMUUR_4' type='28' address='IEQ0398269:12' ise_id='2015' direction='SENDER' parent_device='1957' index='12' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /></device><device name='IO_SCHAKELAAR_LIVINGDEUR' address='IEQ0398146' ise_id='2019' interface='BidCos-Wired' device_type='HMW-IO-12-FM' ready_config='true'><channel name='I_SCHAKELAAR_LIVINGDEUR_1' type='28' address='IEQ0398146:1' ise_id='2033' direction='SENDER' parent_device='2019' index='1' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_LIVINGDEUR_2' type='28' address='IEQ0398146:2' ise_id='2037' direction='SENDER' parent_device='2019' index='2' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_LIVINGDEUR_3' type='28' address='IEQ0398146:3' ise_id='2041' direction='SENDER' parent_device='2019' index='3' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_LIVINGDEUR_4' type='28' address='IEQ0398146:4' ise_id='2045' direction='SENDER' parent_device='2019' index='4' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_TERUGMELDING_LIVINGDEUR_1' type='28' address='IEQ0398146:5' ise_id='2049' direction='RECEIVER' parent_device='2019' index='5' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_TERUGMELDING_LIVINGDEUR_2' type='28' address='IEQ0398146:6' ise_id='2053' direction='RECEIVER' parent_device='2019' index='6' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_TERUGMELDING_LIVINGDEUR_3' type='28' address='IEQ0398146:7' ise_id='2057' direction='RECEIVER' parent_device='2019' index='7' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_TERUGMELDING_LIVINGDEUR_4' type='28' address='IEQ0398146:8' ise_id='2061' direction='RECEIVER' parent_device='2019' index='8' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='UNUSED_IO_LIVINGDEUR_1' type='28' address='IEQ0398146:9' ise_id='2065' direction='SENDER' parent_device='2019' index='9' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='UNUSED_IO_LIVINGDEUR_2' type='28' address='IEQ0398146:10' ise_id='2069' direction='SENDER' parent_device='2019' index='10' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='UNUSED_IO_LIVINGDEUR_3' type='28' address='IEQ0398146:11' ise_id='2073' direction='SENDER' parent_device='2019' index='11' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='UNUSED_IO_LIVINGDEUR_4' type='28' address='IEQ0398146:12' ise_id='2077' direction='SENDER' parent_device='2019' index='12' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /></device><device name='IO_SCHAKELAAR_LIVINGMUUR' address='IEQ0398125' ise_id='1833' interface='BidCos-Wired' device_type='HMW-IO-12-FM' ready_config='true'><channel name='UNUSED_LIVINGMUUR_1' type='28' address='IEQ0398125:1' ise_id='1847' direction='SENDER' parent_device='1833' index='1' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='UNUSED_LIVINGMUUR_2' type='28' address='IEQ0398125:2' ise_id='1851' direction='SENDER' parent_device='1833' index='2' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='UNUSED_LIVINGMUUR_3' type='28' address='IEQ0398125:3' ise_id='1855' direction='SENDER' parent_device='1833' index='3' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='UNUSED_LIVINGMUUR_4' type='28' address='IEQ0398125:4' ise_id='1859' direction='SENDER' parent_device='1833' index='4' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_LIVINGMUUR_3' type='28' address='IEQ0398125:5' ise_id='1863' direction='SENDER' parent_device='1833' index='5' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_LIVINGMUUR_4' type='28' address='IEQ0398125:6' ise_id='1867' direction='SENDER' parent_device='1833' index='6' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_LIVINGMUUR_1' type='28' address='IEQ0398125:7' ise_id='1871' direction='SENDER' parent_device='1833' index='7' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='I_SCHAKELAAR_LIVINGMUUR_2' type='28' address='IEQ0398125:8' ise_id='1875' direction='SENDER' parent_device='1833' index='8' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_TERUGMELDING_LIVINGMUUR_3' type='28' address='IEQ0398125:9' ise_id='1879' direction='RECEIVER' parent_device='1833' index='9' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_TERUGMELDING_LIVINGMUUR_4' type='28' address='IEQ0398125:10' ise_id='1883' direction='RECEIVER' parent_device='1833' index='10' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_TERUGMELDING_LIVINGMUUR_1' type='28' address='IEQ0398125:11' ise_id='1887' direction='RECEIVER' parent_device='1833' index='11' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /><channel name='O_TERUGMELDING_LIVINGMUUR_2' type='28' address='IEQ0398125:12' ise_id='1891' direction='RECEIVER' parent_device='1833' index='12' group_partner='' aes_available='false' transmission_mode='DEFAULT' visible='true' ready_config='true' operate='true' /></device></deviceList>
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<deviceList>
+	<device name='BEWEGINGSMELDER_VOORDEUR' address='JEQ0703057'
+		ise_id='3163' interface='BidCos-RF' device_type='HM-Sen-MDIR-O'
+		ready_config='true'>
+		<channel name='HM-Sen-MDIR-O JEQ0703057:1' type='17' address='JEQ0703057:1'
+			ise_id='3185' direction='SENDER' parent_device='3163' index='1'
+			group_partner='' aes_available='true' transmission_mode='AES'
+			visible='true' ready_config='true' operate='true' />
+	</device>
+	<device name='DIMMER_BUREAU' address='JEQ0545914' ise_id='1465'
+		interface='BidCos-Wired' device_type='HMW-LC-Dim1L-DR' ready_config='true'>
+		<channel name='HMW-LC-Dim1L-DR JEQ0545914:1' type='32'
+			address='JEQ0545914:1' ise_id='1479' direction='SENDER'
+			parent_device='1465' index='1' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='HMW-LC-Dim1L-DR JEQ0545914:2' type='32'
+			address='JEQ0545914:2' ise_id='1483' direction='SENDER'
+			parent_device='1465' index='2' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='O_DIMMER_BUREAU' type='27' address='JEQ0545914:3'
+			ise_id='1487' direction='RECEIVER' parent_device='1465' index='3'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+	</device>
+	<device name='DIMMER_EETTAFEL' address='JEQ0546057' ise_id='1437'
+		interface='BidCos-Wired' device_type='HMW-LC-Dim1L-DR' ready_config='true'>
+		<channel name='HMW-LC-Dim1L-DR JEQ0546057:1' type='32'
+			address='JEQ0546057:1' ise_id='1451' direction='SENDER'
+			parent_device='1437' index='1' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='HMW-LC-Dim1L-DR JEQ0546057:2' type='32'
+			address='JEQ0546057:2' ise_id='1455' direction='SENDER'
+			parent_device='1437' index='2' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='O_DIMMER_EETTAFEL' type='27' address='JEQ0546057:3'
+			ise_id='1459' direction='RECEIVER' parent_device='1437' index='3'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+	</device>
+	<device name='DIMMER_KEUKENTAFEL' address='JEQ0714786' ise_id='1743'
+		interface='BidCos-Wired' device_type='HMW-LC-Dim1L-DR' ready_config='true'>
+		<channel name='HMW-LC-Dim1L-DR JEQ0714786:1' type='32'
+			address='JEQ0714786:1' ise_id='1757' direction='SENDER'
+			parent_device='1743' index='1' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='HMW-LC-Dim1L-DR JEQ0714786:2' type='32'
+			address='JEQ0714786:2' ise_id='1761' direction='SENDER'
+			parent_device='1743' index='2' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='O_DIMMER_KEUKENTAFEL' type='27' address='JEQ0714786:3'
+			ise_id='1765' direction='RECEIVER' parent_device='1743' index='3'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+	</device>
+	<device name='DIMMER_LIVINGRAAM' address='JEQ0714732' ise_id='1687'
+		interface='BidCos-Wired' device_type='HMW-LC-Dim1L-DR' ready_config='true'>
+		<channel name='HMW-LC-Dim1L-DR JEQ0714732:1' type='32'
+			address='JEQ0714732:1' ise_id='1701' direction='SENDER'
+			parent_device='1687' index='1' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='HMW-LC-Dim1L-DR JEQ0714732:2' type='32'
+			address='JEQ0714732:2' ise_id='1705' direction='SENDER'
+			parent_device='1687' index='2' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='O_DIMMER_LIVINGRAAM' type='27' address='JEQ0714732:3'
+			ise_id='1709' direction='RECEIVER' parent_device='1687' index='3'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+	</device>
+	<device name='DIMMER_ZETEL' address='JEQ0545894' ise_id='1409'
+		interface='BidCos-Wired' device_type='HMW-LC-Dim1L-DR' ready_config='true'>
+		<channel name='HMW-LC-Dim1L-DR JEQ0545894:1' type='32'
+			address='JEQ0545894:1' ise_id='1423' direction='SENDER'
+			parent_device='1409' index='1' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='HMW-LC-Dim1L-DR JEQ0545894:2' type='32'
+			address='JEQ0545894:2' ise_id='1427' direction='SENDER'
+			parent_device='1409' index='2' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='O_DIMMER_ZETEL' type='27' address='JEQ0545894:3'
+			ise_id='1431' direction='RECEIVER' parent_device='1409' index='3'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+	</device>
+	<device name='DIMMER_ZOLDER' address='JEQ0714817' ise_id='1715'
+		interface='BidCos-Wired' device_type='HMW-LC-Dim1L-DR' ready_config='true'>
+		<channel name='HMW-LC-Dim1L-DR JEQ0714817:1' type='32'
+			address='JEQ0714817:1' ise_id='1729' direction='SENDER'
+			parent_device='1715' index='1' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='HMW-LC-Dim1L-DR JEQ0714817:2' type='32'
+			address='JEQ0714817:2' ise_id='1733' direction='SENDER'
+			parent_device='1715' index='2' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='O_DIMMER_ZOLDER' type='27' address='JEQ0714817:3'
+			ise_id='1737' direction='RECEIVER' parent_device='1715' index='3'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+	</device>
+	<device name='HM-CCU-1 System' address='System' ise_id='1389'
+		interface='System' device_type='HM-CCU-1' ready_config='true'>
+		<channel name='Zentralennetzteil' type='17' address='System:1'
+			ise_id='1390' direction='SENDER' parent_device='1389' index='1'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='Sabotagekontakt' type='17' address='System:2'
+			ise_id='1406' direction='SENDER' parent_device='1389' index='2'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+	</device>
+	<device name='IO_LICHTEN_1' address='JEQ0270307' ise_id='1493'
+		interface='BidCos-Wired' device_type='HMW-IO-12-Sw7-DR' ready_config='true'>
+		<channel name='I_SCHAKELAAR_GARAGEDEUR' type='32' address='JEQ0270307:1'
+			ise_id='1507' direction='SENDER' parent_device='1493' index='1'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_GARAGEPOORT' type='32' address='JEQ0270307:2'
+			ise_id='1511' direction='SENDER' parent_device='1493' index='2'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_VOORRAADKAST' type='32' address='JEQ0270307:3'
+			ise_id='1515' direction='SENDER' parent_device='1493' index='3'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_GANG' type='32' address='JEQ0270307:4'
+			ise_id='1519' direction='SENDER' parent_device='1493' index='4'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_BUREAU' type='32' address='JEQ0270307:5'
+			ise_id='1523' direction='SENDER' parent_device='1493' index='5'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_SLAAPKAMER_STRAAT_1' type='32'
+			address='JEQ0270307:6' ise_id='1527' direction='SENDER'
+			parent_device='1493' index='6' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='I_SCHAKELAAR_SLAAPKAMER_STRAAT_2' type='32'
+			address='JEQ0270307:7' ise_id='1531' direction='SENDER'
+			parent_device='1493' index='7' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='I_SCHAKELAAR_SLAAPKAMER_TUIN_1' type='32'
+			address='JEQ0270307:8' ise_id='1535' direction='SENDER'
+			parent_device='1493' index='8' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='I_SCHAKELAAR_SLAAPKAMER_TUIN_2' type='32'
+			address='JEQ0270307:9' ise_id='1539' direction='SENDER'
+			parent_device='1493' index='9' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='I_SCHAKELAAR_ZOLDER_4' type='32' address='JEQ0270307:10'
+			ise_id='1543' direction='SENDER' parent_device='1493' index='10'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_GENERAL' type='32' address='JEQ0270307:11'
+			ise_id='1547' direction='SENDER' parent_device='1493' index='11'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_ZOLDER_1' type='32' address='JEQ0270307:12'
+			ise_id='1551' direction='SENDER' parent_device='1493' index='12'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='O_LICHT_GARAGE' type='26' address='JEQ0270307:13'
+			ise_id='1555' direction='RECEIVER' parent_device='1493' index='13'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='O_LICHT_VOORDEUR' type='26' address='JEQ0270307:14'
+			ise_id='1560' direction='RECEIVER' parent_device='1493' index='14'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='O_LICHT_OVERSTEEK' type='26' address='JEQ0270307:15'
+			ise_id='1565' direction='RECEIVER' parent_device='1493' index='15'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='O_LICHT_TUINHUIS' type='26' address='JEQ0270307:16'
+			ise_id='1570' direction='RECEIVER' parent_device='1493' index='16'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='O_LICHT_SPOTS_KEUKENKASTEN' type='26'
+			address='JEQ0270307:17' ise_id='1575' direction='RECEIVER'
+			parent_device='1493' index='17' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='O_LICHT_WC' type='26' address='JEQ0270307:18'
+			ise_id='1580' direction='RECEIVER' parent_device='1493' index='18'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='O_LICHT_GANG' type='26' address='JEQ0270307:19'
+			ise_id='1585' direction='RECEIVER' parent_device='1493' index='19'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+	</device>
+	<device name='IO_LICHTEN_2' address='JEQ0270360' ise_id='1590'
+		interface='BidCos-Wired' device_type='HMW-IO-12-Sw7-DR' ready_config='true'>
+		<channel name='I_SCHAKELAAR_ZOLDER' type='32' address='JEQ0270360:1'
+			ise_id='1604' direction='SENDER' parent_device='1590' index='1'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_ZOLDER_BENEDEN' type='32'
+			address='JEQ0270360:2' ise_id='1608' direction='SENDER'
+			parent_device='1590' index='2' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='I_SCHAKELAAR_GARAGEDEUR_2' type='32' address='JEQ0270360:3'
+			ise_id='1612' direction='SENDER' parent_device='1590' index='3'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_VRIJ_2' type='32' address='JEQ0270360:4'
+			ise_id='1616' direction='SENDER' parent_device='1590' index='4'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_VRIJ_3' type='32' address='JEQ0270360:5'
+			ise_id='1620' direction='SENDER' parent_device='1590' index='5'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_VRIJ_4' type='32' address='JEQ0270360:6'
+			ise_id='1624' direction='SENDER' parent_device='1590' index='6'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_VRIJ_5' type='32' address='JEQ0270360:7'
+			ise_id='1628' direction='SENDER' parent_device='1590' index='7'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_VRIJ_6' type='32' address='JEQ0270360:8'
+			ise_id='1632' direction='SENDER' parent_device='1590' index='8'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_VRIJ_7' type='32' address='JEQ0270360:9'
+			ise_id='1636' direction='SENDER' parent_device='1590' index='9'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_VRIJ_8' type='32' address='JEQ0270360:10'
+			ise_id='1640' direction='SENDER' parent_device='1590' index='10'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_VRIJ_9' type='32' address='JEQ0270360:11'
+			ise_id='1644' direction='SENDER' parent_device='1590' index='11'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_VRIJ_10' type='32' address='JEQ0270360:12'
+			ise_id='1648' direction='SENDER' parent_device='1590' index='12'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='O_LICHT_LEDSTRIP_KEUKENKASTEN' type='26'
+			address='JEQ0270360:13' ise_id='1652' direction='RECEIVER'
+			parent_device='1590' index='13' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='O_LICHT_VOORRAADKAST' type='26' address='JEQ0270360:14'
+			ise_id='1657' direction='RECEIVER' parent_device='1590' index='14'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='O_LICHT_SLAAPKAMER_STRAAT' type='26' address='JEQ0270360:15'
+			ise_id='1662' direction='RECEIVER' parent_device='1590' index='15'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='O_LICHT_SLAAPKAMER_TUIN' type='26' address='JEQ0270360:16'
+			ise_id='1667' direction='RECEIVER' parent_device='1590' index='16'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='O_LICHT_BADKAMER_1' type='26' address='JEQ0270360:17'
+			ise_id='1672' direction='RECEIVER' parent_device='1590' index='17'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='O_LICHT_BADKAMER_2' type='26' address='JEQ0270360:18'
+			ise_id='1677' direction='RECEIVER' parent_device='1590' index='18'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='O_LICHT_DOUCHE' type='26' address='JEQ0270360:19'
+			ise_id='1682' direction='RECEIVER' parent_device='1590' index='19'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+	</device>
+	<device name='IO_SCHAKELAAR_AANRECHT' address='IEQ0398119'
+		ise_id='1771' interface='BidCos-Wired' device_type='HMW-IO-12-FM'
+		ready_config='true'>
+		<channel name='I_SCHAKELAAR_AANRECHT_1' type='28' address='IEQ0398119:1'
+			ise_id='1785' direction='SENDER' parent_device='1771' index='1'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_AANRECHT_2' type='28' address='IEQ0398119:2'
+			ise_id='1789' direction='SENDER' parent_device='1771' index='2'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_AANRECHT_3' type='28' address='IEQ0398119:3'
+			ise_id='1793' direction='SENDER' parent_device='1771' index='3'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_AANRECHT_4' type='28' address='IEQ0398119:4'
+			ise_id='1797' direction='SENDER' parent_device='1771' index='4'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='O_TERUGMELDING_AANRECHT_1' type='28' address='IEQ0398119:5'
+			ise_id='1801' direction='RECEIVER' parent_device='1771' index='5'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='O_TERUGMELDING_AANRECHT_2' type='28' address='IEQ0398119:6'
+			ise_id='1805' direction='RECEIVER' parent_device='1771' index='6'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='O_TERUGMELDING_AANRECHT_3' type='28' address='IEQ0398119:7'
+			ise_id='1809' direction='RECEIVER' parent_device='1771' index='7'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='O_TERUGMELDING_AANRECHT_4' type='28' address='IEQ0398119:8'
+			ise_id='1813' direction='RECEIVER' parent_device='1771' index='8'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='UNUSED_IO_AANRECHT_1' type='28' address='IEQ0398119:9'
+			ise_id='1817' direction='SENDER' parent_device='1771' index='9'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='UNUSED_IO_AANRECHT_2' type='28' address='IEQ0398119:10'
+			ise_id='1821' direction='SENDER' parent_device='1771' index='10'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='UNUSED_IO_AANRECHT_3' type='28' address='IEQ0398119:11'
+			ise_id='1825' direction='SENDER' parent_device='1771' index='11'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='UNUSED_IO_AANRECHT_4' type='28' address='IEQ0398119:12'
+			ise_id='1829' direction='SENDER' parent_device='1771' index='12'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+	</device>
+	<device name='IO_SCHAKELAAR_GANG' address='IEQ0398217' ise_id='1895'
+		interface='BidCos-Wired' device_type='HMW-IO-12-FM' ready_config='true'>
+		<channel name='I_SCHAKELAAR_GANG_1' type='28' address='IEQ0398217:1'
+			ise_id='1909' direction='SENDER' parent_device='1895' index='1'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_GANG_2' type='28' address='IEQ0398217:2'
+			ise_id='1913' direction='SENDER' parent_device='1895' index='2'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_GANG_3' type='28' address='IEQ0398217:3'
+			ise_id='1917' direction='SENDER' parent_device='1895' index='3'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_GANG_4' type='28' address='IEQ0398217:4'
+			ise_id='1921' direction='SENDER' parent_device='1895' index='4'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='O_TERUGMELDING_GANG_1' type='28' address='IEQ0398217:5'
+			ise_id='1925' direction='RECEIVER' parent_device='1895' index='5'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='O_TERUGMELDING_GANG_2' type='28' address='IEQ0398217:6'
+			ise_id='1929' direction='RECEIVER' parent_device='1895' index='6'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='O_TERUGMELDING_GANG_3' type='28' address='IEQ0398217:7'
+			ise_id='1933' direction='RECEIVER' parent_device='1895' index='7'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='UNUSED_GANG_5' type='28' address='IEQ0398217:8'
+			ise_id='1937' direction='SENDER' parent_device='1895' index='8'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='O_TERUGMELDING_GANG_4' type='28' address='IEQ0398217:9'
+			ise_id='1941' direction='RECEIVER' parent_device='1895' index='9'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='UNUSED_IO_GANG_2' type='28' address='IEQ0398217:10'
+			ise_id='1945' direction='SENDER' parent_device='1895' index='10'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='UNUSED_IO_GANG_3' type='28' address='IEQ0398217:11'
+			ise_id='1949' direction='SENDER' parent_device='1895' index='11'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='UNUSED_IO_GANG_4' type='28' address='IEQ0398217:12'
+			ise_id='1953' direction='SENDER' parent_device='1895' index='12'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+	</device>
+	<device name='IO_SCHAKELAAR_KEUKENMUUR' address='IEQ0398269'
+		ise_id='1957' interface='BidCos-Wired' device_type='HMW-IO-12-FM'
+		ready_config='true'>
+		<channel name='I_SCHAKELAAR_KEUKENMUUR_3' type='28' address='IEQ0398269:1'
+			ise_id='1971' direction='SENDER' parent_device='1957' index='1'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_KEUKENMUUR_4' type='28' address='IEQ0398269:2'
+			ise_id='1975' direction='SENDER' parent_device='1957' index='2'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_KEUKENMUUR_1' type='28' address='IEQ0398269:3'
+			ise_id='1979' direction='SENDER' parent_device='1957' index='3'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_KEUKENMUUR_2' type='28' address='IEQ0398269:4'
+			ise_id='1983' direction='SENDER' parent_device='1957' index='4'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='O_TERUGMELDING_KEUKENMUUR_3' type='28'
+			address='IEQ0398269:5' ise_id='1987' direction='RECEIVER'
+			parent_device='1957' index='5' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='O_TERUGMELDING_KEUKENMUUR_1' type='28'
+			address='IEQ0398269:6' ise_id='1991' direction='RECEIVER'
+			parent_device='1957' index='6' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='O_TERUGMELDING_KEUKENMUUR_4' type='28'
+			address='IEQ0398269:7' ise_id='1995' direction='RECEIVER'
+			parent_device='1957' index='7' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='O_TERUGMELDING_KEUKENMUUR_2' type='28'
+			address='IEQ0398269:8' ise_id='1999' direction='RECEIVER'
+			parent_device='1957' index='8' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='UNUSED_KEUKENMUUR_1' type='28' address='IEQ0398269:9'
+			ise_id='2003' direction='SENDER' parent_device='1957' index='9'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='UNUSED_KEUKENMUUR_2' type='28' address='IEQ0398269:10'
+			ise_id='2007' direction='SENDER' parent_device='1957' index='10'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='UNUSED_KEUKENMUUR_3' type='28' address='IEQ0398269:11'
+			ise_id='2011' direction='SENDER' parent_device='1957' index='11'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='UNUSED_KEUKENMUUR_4' type='28' address='IEQ0398269:12'
+			ise_id='2015' direction='SENDER' parent_device='1957' index='12'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+	</device>
+	<device name='IO_SCHAKELAAR_LIVINGDEUR' address='IEQ0398146'
+		ise_id='2019' interface='BidCos-Wired' device_type='HMW-IO-12-FM'
+		ready_config='true'>
+		<channel name='I_SCHAKELAAR_LIVINGDEUR_1' type='28' address='IEQ0398146:1'
+			ise_id='2033' direction='SENDER' parent_device='2019' index='1'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_LIVINGDEUR_2' type='28' address='IEQ0398146:2'
+			ise_id='2037' direction='SENDER' parent_device='2019' index='2'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_LIVINGDEUR_3' type='28' address='IEQ0398146:3'
+			ise_id='2041' direction='SENDER' parent_device='2019' index='3'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_LIVINGDEUR_4' type='28' address='IEQ0398146:4'
+			ise_id='2045' direction='SENDER' parent_device='2019' index='4'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='O_TERUGMELDING_LIVINGDEUR_1' type='28'
+			address='IEQ0398146:5' ise_id='2049' direction='RECEIVER'
+			parent_device='2019' index='5' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='O_TERUGMELDING_LIVINGDEUR_2' type='28'
+			address='IEQ0398146:6' ise_id='2053' direction='RECEIVER'
+			parent_device='2019' index='6' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='O_TERUGMELDING_LIVINGDEUR_3' type='28'
+			address='IEQ0398146:7' ise_id='2057' direction='RECEIVER'
+			parent_device='2019' index='7' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='O_TERUGMELDING_LIVINGDEUR_4' type='28'
+			address='IEQ0398146:8' ise_id='2061' direction='RECEIVER'
+			parent_device='2019' index='8' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='UNUSED_IO_LIVINGDEUR_1' type='28' address='IEQ0398146:9'
+			ise_id='2065' direction='SENDER' parent_device='2019' index='9'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='UNUSED_IO_LIVINGDEUR_2' type='28' address='IEQ0398146:10'
+			ise_id='2069' direction='SENDER' parent_device='2019' index='10'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='UNUSED_IO_LIVINGDEUR_3' type='28' address='IEQ0398146:11'
+			ise_id='2073' direction='SENDER' parent_device='2019' index='11'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='UNUSED_IO_LIVINGDEUR_4' type='28' address='IEQ0398146:12'
+			ise_id='2077' direction='SENDER' parent_device='2019' index='12'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+	</device>
+	<device name='IO_SCHAKELAAR_LIVINGMUUR' address='IEQ0398125'
+		ise_id='1833' interface='BidCos-Wired' device_type='HMW-IO-12-FM'
+		ready_config='true'>
+		<channel name='UNUSED_LIVINGMUUR_1' type='28' address='IEQ0398125:1'
+			ise_id='1847' direction='SENDER' parent_device='1833' index='1'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='UNUSED_LIVINGMUUR_2' type='28' address='IEQ0398125:2'
+			ise_id='1851' direction='SENDER' parent_device='1833' index='2'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='UNUSED_LIVINGMUUR_3' type='28' address='IEQ0398125:3'
+			ise_id='1855' direction='SENDER' parent_device='1833' index='3'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='UNUSED_LIVINGMUUR_4' type='28' address='IEQ0398125:4'
+			ise_id='1859' direction='SENDER' parent_device='1833' index='4'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_LIVINGMUUR_3' type='28' address='IEQ0398125:5'
+			ise_id='1863' direction='SENDER' parent_device='1833' index='5'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_LIVINGMUUR_4' type='28' address='IEQ0398125:6'
+			ise_id='1867' direction='SENDER' parent_device='1833' index='6'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_LIVINGMUUR_1' type='28' address='IEQ0398125:7'
+			ise_id='1871' direction='SENDER' parent_device='1833' index='7'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='I_SCHAKELAAR_LIVINGMUUR_2' type='28' address='IEQ0398125:8'
+			ise_id='1875' direction='SENDER' parent_device='1833' index='8'
+			group_partner='' aes_available='false' transmission_mode='DEFAULT'
+			visible='true' ready_config='true' operate='true' />
+		<channel name='O_TERUGMELDING_LIVINGMUUR_3' type='28'
+			address='IEQ0398125:9' ise_id='1879' direction='RECEIVER'
+			parent_device='1833' index='9' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='O_TERUGMELDING_LIVINGMUUR_4' type='28'
+			address='IEQ0398125:10' ise_id='1883' direction='RECEIVER'
+			parent_device='1833' index='10' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='O_TERUGMELDING_LIVINGMUUR_1' type='28'
+			address='IEQ0398125:11' ise_id='1887' direction='RECEIVER'
+			parent_device='1833' index='11' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+		<channel name='O_TERUGMELDING_LIVINGMUUR_2' type='28'
+			address='IEQ0398125:12' ise_id='1891' direction='RECEIVER'
+			parent_device='1833' index='12' group_partner='' aes_available='false'
+			transmission_mode='DEFAULT' visible='true' ready_config='true'
+			operate='true' />
+	</device>
+</deviceList>
