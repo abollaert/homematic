@@ -2,26 +2,22 @@ package be.techniquez.homeautomation.homematic.impl.channel;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.Socket;
 import java.net.URL;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.ThreadFactory;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import javax.net.SocketFactory;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import be.techniquez.homeautomation.homematic.api.Device;
 import be.techniquez.homeautomation.homematic.impl.CCUChannel;
+import be.techniquez.homeautomation.homematic.impl.CCUEventing;
 import be.techniquez.homeautomation.homematic.impl.channel.XMLAPIURLBuilder.Endpoint;
 import be.techniquez.homeautomation.homematic.impl.device.DeviceType;
+import be.techniquez.homeautomation.homematic.impl.event.CCUEventingImpl;
 import be.techniquez.homeautomation.homematic.xmlapi.devicelist.DeviceList;
 import be.techniquez.homeautomation.homematic.xmlapi.state.Result;
 import be.techniquez.homeautomation.homematic.xmlapi.state.State;
@@ -47,7 +43,7 @@ public final class CCUChannelImpl implements CCUChannel {
 
 	/** The default port. */
 	private static final int DEFAULT_PORT = 80;
-	
+
 	/** The event port. */
 	private static final int DEFAULT_EVENT_PORT = 2000;
 
@@ -56,23 +52,9 @@ public final class CCUChannelImpl implements CCUChannel {
 
 	/** The port the API is running on. */
 	private final int port;
-	
-	/** The event port. */
-	private final int eventPort;
-	
-	/** The event socket. */
-	private Socket eventSocket;
-	
-	/** The event reader. */
-	private final ExecutorService eventReader = Executors.newSingleThreadExecutor((runnable) -> {
-		final Thread t = new Thread(runnable, "CCU channel : event reader thread");
-		t.setDaemon(true);
-		
-		return t;
-	});
 
-	/** The event reader future. */
-	private Future<?> eventReaderFuture;
+	/** The eventing. */
+	private CCUEventing eventing;
 
 	/**
 	 * Create a new instance.
@@ -85,7 +67,7 @@ public final class CCUChannelImpl implements CCUChannel {
 	public CCUChannelImpl(final String hostname, final int port, final int eventPort) {
 		this.hostname = hostname;
 		this.port = port;
-		this.eventPort = eventPort;
+		this.eventing = new CCUEventingImpl(hostname, eventPort);
 	}
 
 	/**
@@ -147,7 +129,7 @@ public final class CCUChannelImpl implements CCUChannel {
 				.parameter(PARAMETER_ISE_ID, channelId).parameter(PARAMETER_NEW_VALUE, newValue).build();
 
 		final Result result = parseJAXB(url, Result.class);
-		
+
 		if (result.getChanged() == null) {
 			if (logger.isLoggable(Level.WARNING)) {
 				logger.log(Level.WARNING, "State change failed : change element was null.");
@@ -185,30 +167,8 @@ public final class CCUChannelImpl implements CCUChannel {
 	 */
 	@Override
 	public final void connect() throws IOException {
-		final SocketFactory socketFactory = SocketFactory.getDefault();
-		this.eventSocket = socketFactory.createSocket(this.hostname, this.eventPort);
-		
-		this.eventReaderFuture = this.eventReader.submit(() -> {
-			try (final InputStream stream = this.eventSocket.getInputStream()) {
-				final byte[] buffer = new byte[1024];
-				int bytesRead = 0;
-				
-				while (!Thread.currentThread().isInterrupted() && bytesRead != -1) {
-					bytesRead = stream.read(buffer);
-					
-					if (bytesRead != -1) {
-						System.out.println(new String(buffer));
-					}
-				}
-			} catch (IOException e) {
-				if (!(e.getMessage().equals("Socket closed"))) {
-					if (logger.isLoggable(Level.WARNING)) {
-						logger.log(Level.WARNING, "IO error while closing event input stream : [" + e.getMessage() + "]", e);
-					}
-				}
-			}
-		});
-		
+		this.eventing.start();
+
 	}
 
 	/**
@@ -216,15 +176,6 @@ public final class CCUChannelImpl implements CCUChannel {
 	 */
 	@Override
 	public final void disconnect() throws IOException {
-		if (this.eventSocket != null) {
-			this.eventReaderFuture.cancel(true);
-			
-			if (!this.eventSocket.isClosed()) {
-				this.eventSocket.close();
-			}
-			
-			this.eventReaderFuture = null;
-			this.eventSocket = null;
-		}
+		this.eventing.stop();
 	}
 }
