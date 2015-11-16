@@ -104,7 +104,7 @@ public final class DimmerImpl extends AbstractDevice implements Dimmer {
 	 */
 	@Override
 	protected final void attributeChanged(final String name, final String value) {
-		if (name.equals("LEVEL")) {
+		if (name.equals(DatapointType.LEVEL.getTypeName())) {
 			this.state = convert(Double.parseDouble(value));
 		}
 	}
