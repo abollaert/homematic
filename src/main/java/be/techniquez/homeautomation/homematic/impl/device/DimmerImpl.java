@@ -34,6 +34,9 @@ public final class DimmerImpl extends AbstractDevice implements Dimmer {
 		return new DimmerImpl(ccuChannel, deviceName, serial, outputChannelId);
 	}
 
+	/** The state. */
+	private volatile int state;
+	
 	/**
 	 * Create a new instance.
 	 * 
@@ -42,6 +45,8 @@ public final class DimmerImpl extends AbstractDevice implements Dimmer {
 	 */
 	public DimmerImpl(final CCUChannel channel, final String name, final String serialNumber, final int outputChannelId) {
 		super(channel, DatapointType.LEVEL, 3, outputChannelId, name, serialNumber);
+		
+		this.state = this.getStateFromCCU();
 	}
 
 	/**
@@ -63,9 +68,27 @@ public final class DimmerImpl extends AbstractDevice implements Dimmer {
 	 */
 	@Override
 	public final int getDimmerValue() {
-		final double percentageFraction = this.getState((string) -> Double.parseDouble(string));
-		
-		final int percentage = (int)(percentageFraction * 100.0);
+		return this.state;
+	}
+	
+	/**
+	 * Returns the state from the CCU.
+	 * 
+	 * @return	The state returned from the CCU.
+	 */
+	private final int getStateFromCCU() {
+		return convert(this.getState((string) -> Double.parseDouble(string)));
+	}
+	
+	/**
+	 * Converts the given value to a percentage.
+	 * 
+	 * @param 		value		The value.
+	 * 
+	 * @return		The percentage.
+	 */
+	private static final int convert(final double value) {
+		final int percentage = (int)(value * 100.0);
 		
 		if (percentage < 0) {
 			return 0;
@@ -81,6 +104,8 @@ public final class DimmerImpl extends AbstractDevice implements Dimmer {
 	 */
 	@Override
 	protected final void attributeChanged(final String name, final String value) {
-		System.out.println("Dimmer : [" + this.toString() + "] : attribute [" + name + "] changed to [" + value + "]");
+		if (name.equals("LEVEL")) {
+			this.state = convert(Double.parseDouble(value));
+		}
 	}
 }

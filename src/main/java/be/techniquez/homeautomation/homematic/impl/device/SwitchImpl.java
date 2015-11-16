@@ -15,6 +15,9 @@ import be.techniquez.homeautomation.homematic.xmlapi.devicelist.Channel;
  */
 public final class SwitchImpl extends AbstractDevice implements Switch {
 	
+	/** The state. */
+	private volatile boolean state;
+	
 	/**
 	 * Creates a list of switches.
 	 * 
@@ -47,6 +50,8 @@ public final class SwitchImpl extends AbstractDevice implements Switch {
 	 */
 	private SwitchImpl(final CCUChannel channel, final int channelNumber, final int iseId, final String name, final String serialNumber) {
 		super(channel, DatapointType.STATE, channelNumber, iseId, name, serialNumber);
+		
+		this.state = this.getState((value) -> Boolean.parseBoolean(value));
 	}
 
 	/**
@@ -54,7 +59,7 @@ public final class SwitchImpl extends AbstractDevice implements Switch {
 	 */
 	@Override
 	public final boolean isOn() {
-		return this.getState((value) -> Boolean.parseBoolean(value));
+		return this.state;
 	}
 
 	/**
