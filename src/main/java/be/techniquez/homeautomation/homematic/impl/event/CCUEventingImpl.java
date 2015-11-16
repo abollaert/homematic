@@ -3,6 +3,8 @@ package be.techniquez.homeautomation.homematic.impl.event;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Hashtable;
+import java.util.Set;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +17,7 @@ import org.apache.xmlrpc.XmlRpcHandler;
 import org.apache.xmlrpc.XmlRpcRequest;
 
 import be.techniquez.homeautomation.homematic.impl.CCUEventing;
+import be.techniquez.homeautomation.homematic.impl.CCUChannel.CCUChannelEventHandler;
 
 /**
  * Eventing implementation.
@@ -29,6 +32,12 @@ public final class CCUEventingImpl implements CCUEventing {
 	/** The port we will be listening on for events. */
 	private static final int EVENT_PORT = 20001;
 	
+	/** The multicall method. */
+	private static final String METHOD_MULTICALL = "system.multicall";
+	
+	/** The event method. */
+	private static final String METHOD_EVENT = "event";
+	
 	/**
 	 * The URL of the server.
 	 */
@@ -42,6 +51,12 @@ public final class CCUEventingImpl implements CCUEventing {
 	
 	/** The server URL. */
 	private String serverURL;
+	
+	/** The event handler. */
+	private XmlRpcHandler eventHandler;
+	
+	/** The event handlers. */
+	private final Set<CCUChannelEventHandler> eventHandlers;
 
 	/**
 	 * Create a new instance.
@@ -49,12 +64,14 @@ public final class CCUEventingImpl implements CCUEventing {
 	 * @param 	hostname		The host name.
 	 * @param 	port			The port.
 	 */
-	public CCUEventingImpl(final String hostname, final int port) {
+	public CCUEventingImpl(final String hostname, final int port, final Set<CCUChannelEventHandler> handlers) {
 		this.url = new StringBuilder("http://").append(hostname)
 											   .append(":")
 											   .append(port)
 											   .append("/")
 											   .toString();
+		
+		this.eventHandlers = handlers;
 	}
 	
 	/**
@@ -112,6 +129,7 @@ public final class CCUEventingImpl implements CCUEventing {
 	/**
 	 * Initializes the XML RPC server. Must be done before {@link #initXmlRpcClient()}.
 	 */
+	@SuppressWarnings("unchecked")
 	private final void initXmlRpcServer(final InetAddress address) {
 		this.serverURL = new StringBuilder("http://").append(address.getHostAddress())
 													 .append(":")
@@ -120,8 +138,14 @@ public final class CCUEventingImpl implements CCUEventing {
 		
 		this.eventServer = new WebServer(EVENT_PORT);
 		
-		final XmlRpcHandler eventHandler = ((method, parameters) -> {
-			System.out.println("Event called : method : [" + method + "], parameters [" + parameters + "]");
+		this.eventHandler = ((method, parameters) -> {
+			if (method != null) {
+				if (method.equals(METHOD_EVENT)) {
+					this.handleEvent(parameters);
+				} else if (method.equals(METHOD_MULTICALL)) {
+					this.handleMulticall(parameters);
+				}
+			}
 			
 			return null;
 		});
@@ -135,6 +159,54 @@ public final class CCUEventingImpl implements CCUEventing {
 		
 		if (logger.isLoggable(Level.INFO)) {
 			logger.log(Level.INFO, "CCU Eventing RPC server : started.");
+		}
+	}
+	
+	/**
+	 * Handles an incoming multicall.
+	 * 
+	 * @param 	parameters		The parameters of the multicall.
+	 */
+	private final void handleMulticall(final Vector<Object> parameters) {
+		for (final Object methodCalls : parameters) {
+			@SuppressWarnings("unchecked")
+			final Vector<Object> calls = (Vector<Object>)methodCalls;
+			
+			for (final Object call : calls) {
+				@SuppressWarnings("unchecked")
+				final Hashtable<String, Object> callParams = (Hashtable<String, Object>)call;
+				
+				final String methodName = (String)callParams.get("methodName");
+				@SuppressWarnings("unchecked")
+				final Vector<Object> params = (Vector<Object>)callParams.get("params");
+				
+				try {
+					this.eventHandler.execute(methodName, params);
+				} catch (Exception e) {
+					if (logger.isLoggable(Level.WARNING)) {
+						logger.log(Level.WARNING, "Error processing event : [" + e.getMessage() + "]", e);
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Handles an event.
+	 * 
+	 * @param 	parameters		The event parameters.
+	 */
+	private final void handleEvent(final Vector<Object> parameters) {
+		if (parameters.size() == 4) {
+			final String address = (String)parameters.get(1);
+			final String attribute = (String)parameters.get(2);
+			final String value = String.valueOf(parameters.get(3));
+			
+			if (logger.isLoggable(Level.INFO)) {
+				logger.log(Level.INFO, "CCU eventing : event received for [" + address + "] : attribute [" + attribute + "] - value [" + value + "]");
+			}
+			
+			this.eventHandlers.stream().forEach((handler) -> handler.eventReceived(address, attribute, value));
 		}
 	}
 	
@@ -174,6 +246,7 @@ public final class CCUEventingImpl implements CCUEventing {
 		
 		this.eventClient = null;
 		this.eventServer = null;
+		this.eventHandler = null;
 		
 		if (logger.isLoggable(Level.INFO)) {
 			logger.log(Level.INFO, "CCU eventing : URL [" + this.url + "] : stopped.");

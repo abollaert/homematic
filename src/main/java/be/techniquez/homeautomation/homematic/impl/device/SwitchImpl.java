@@ -64,4 +64,12 @@ public final class SwitchImpl extends AbstractDevice implements Switch {
 	public final void setOn(boolean on) {
 		this.setState(String.valueOf(on));
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected final void attributeChanged(final String name, final String value) {
+		System.out.println("Switch : [" + this.toString() + "] : attribute [" + name + "] changed to [" + value + "]");
+	}
 }

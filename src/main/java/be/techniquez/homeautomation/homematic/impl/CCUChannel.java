@@ -14,6 +14,24 @@ import be.techniquez.homeautomation.homematic.xmlapi.state.State;
 public interface CCUChannel {
 	
 	/**
+	 * Supplied by devices that want to receive events.
+	 * 
+	 * @author alex
+	 */
+	@FunctionalInterface
+	public interface CCUChannelEventHandler {
+		
+		/**
+		 * Called when an event was received.
+		 * 
+		 * @param 	address			The address.
+		 * @param 	attribute		The attribute.
+		 * @param 	value			The value.
+		 */
+		void eventReceived(final String address, final String attribute, final String value);
+	}
+	
+	/**
 	 * Returns a {@link List} of devices.
 	 * 
 	 * @return	A list of devices.
@@ -64,4 +82,18 @@ public interface CCUChannel {
 	 * Disconnects the channel.
 	 */
 	void disconnect() throws IOException;
+	
+	/**
+	 * Adds a channel handler.
+	 * 
+	 * @param 	handler		The handler.
+	 */
+	void addEventHandler(final CCUChannelEventHandler handler);
+	
+	/**
+	 * Removes a channel handler.
+	 * 
+	 * @param 	handler		The handler.
+	 */
+	void removeEventHandler(final CCUChannelEventHandler handler);
 }

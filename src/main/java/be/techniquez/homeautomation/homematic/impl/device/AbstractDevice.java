@@ -37,6 +37,9 @@ public abstract class AbstractDevice implements Device {
 	/** The channel number. */
 	private final int channelNumber;
 	
+	/** The address. */
+	private final String address;
+	
 	/** The data point id. */
 	private final String datapointName;
 	
@@ -72,6 +75,14 @@ public abstract class AbstractDevice implements Device {
 												.append(".")
 												.append(this.channelType.getTypeName())
 												.toString();
+		
+		this.address = new StringBuilder(this.serialNumber).append(":").append(this.channelNumber).toString();
+		
+		this.channel.addEventHandler((address, attribute, value) -> {
+			if (address.equals(this.address)) {
+				this.attributeChanged(attribute, value);
+			}
+		});
 	}
 
 	/**
@@ -169,4 +180,12 @@ public abstract class AbstractDevice implements Device {
 								  .append("data point name: ").append("[").append(this.datapointName).append("]")
 								  .toString();
 	}
+	
+	/**
+	 * Called when the value of an attribute has changed.
+	 * 
+	 * @param 	name		The name of the attribute.
+	 * @param 	value		The value of the attribute.
+	 */
+	protected abstract void attributeChanged(final String name, final String value);
 }

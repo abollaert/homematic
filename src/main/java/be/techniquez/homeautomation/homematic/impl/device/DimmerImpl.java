@@ -75,4 +75,12 @@ public final class DimmerImpl extends AbstractDevice implements Dimmer {
 			return percentage;
 		}
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected final void attributeChanged(final String name, final String value) {
+		System.out.println("Dimmer : [" + this.toString() + "] : attribute [" + name + "] changed to [" + value + "]");
+	}
 }
