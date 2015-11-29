@@ -81,7 +81,12 @@ public final class SwitchImpl extends AbstractDevice implements Switch {
 	 */
 	@Override
 	protected final void attributeChanged(final String name, final String value) {
-		System.out.println("Switch : [" + this.toString() + "] : attribute [" + name + "] changed to [" + value + "]");
+		if (name.equals(DatapointType.STATE.getTypeName())) {
+			this.state = Boolean.parseBoolean(value);
+			
+			this.listeners.stream()
+						  .forEach((listener) -> listener.stateChanged(this.state));
+		}
 	}
 	
 	/**
