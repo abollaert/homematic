@@ -20,4 +20,18 @@ public interface Dimmer extends Device {
 	 * @return	The percentage dimmed.
 	 */
 	int getDimmerValue();
+	
+	/**
+	 * Add a listener.
+	 * 
+	 * @param 	listener		The listener to add.
+	 */
+	void addListener(final DimmerListener listener);
+	
+	/**
+	 * Removes a listener.
+	 * 
+	 * @param 	listener		The listener to remove.
+	 */
+	void removeListener(final DimmerListener listener);
 }

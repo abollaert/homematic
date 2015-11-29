@@ -20,4 +20,18 @@ public interface Switch extends Device {
 	 * @param 	on		Set on or off.
 	 */
 	void setOn(final boolean on);
+	
+	/**
+	 * Add a listener.
+	 * 
+	 * @param 	listener		The listener to add.
+	 */
+	void addListener(final SwitchListener listener);
+	
+	/**
+	 * Removes a listener.
+	 * 
+	 * @param 	listener		The listener to remove.
+	 */
+	void removeListener(final SwitchListener listener);
 }

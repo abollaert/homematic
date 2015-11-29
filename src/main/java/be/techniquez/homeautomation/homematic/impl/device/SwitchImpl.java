@@ -1,10 +1,13 @@
 package be.techniquez.homeautomation.homematic.impl.device;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import be.techniquez.homeautomation.homematic.api.Device;
 import be.techniquez.homeautomation.homematic.api.Switch;
+import be.techniquez.homeautomation.homematic.api.SwitchListener;
 import be.techniquez.homeautomation.homematic.impl.CCUChannel;
 import be.techniquez.homeautomation.homematic.xmlapi.devicelist.Channel;
 
@@ -14,9 +17,6 @@ import be.techniquez.homeautomation.homematic.xmlapi.devicelist.Channel;
  * @author alex
  */
 public final class SwitchImpl extends AbstractDevice implements Switch {
-	
-	/** The state. */
-	private volatile boolean state;
 	
 	/**
 	 * Creates a list of switches.
@@ -38,6 +38,12 @@ public final class SwitchImpl extends AbstractDevice implements Switch {
 		
 		return devices;
 	}
+	
+	/** The state. */
+	private volatile boolean state;
+	
+	/** The listeners. */
+	private final Set<SwitchListener> listeners = new HashSet<>();
 
 	/**
 	 * Create a new instance.
@@ -76,5 +82,21 @@ public final class SwitchImpl extends AbstractDevice implements Switch {
 	@Override
 	protected final void attributeChanged(final String name, final String value) {
 		System.out.println("Switch : [" + this.toString() + "] : attribute [" + name + "] changed to [" + value + "]");
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public final void addListener(final SwitchListener listener) {
+		this.listeners.add(listener);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public final void removeListener(final SwitchListener listener) {
+		this.listeners.remove(listener);
 	}
 }

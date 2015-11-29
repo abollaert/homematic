@@ -1,6 +1,10 @@
 package be.techniquez.homeautomation.homematic.impl.device;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import be.techniquez.homeautomation.homematic.api.Dimmer;
+import be.techniquez.homeautomation.homematic.api.DimmerListener;
 import be.techniquez.homeautomation.homematic.impl.CCUChannel;
 import be.techniquez.homeautomation.homematic.xmlapi.devicelist.Device;
 
@@ -36,6 +40,9 @@ public final class DimmerImpl extends AbstractDevice implements Dimmer {
 
 	/** The state. */
 	private volatile int state;
+	
+	/** The listeners. */
+	private final Set<DimmerListener> listeners = new HashSet<>();
 	
 	/**
 	 * Create a new instance.
@@ -106,6 +113,25 @@ public final class DimmerImpl extends AbstractDevice implements Dimmer {
 	protected final void attributeChanged(final String name, final String value) {
 		if (name.equals(DatapointType.LEVEL.getTypeName())) {
 			this.state = convert(Double.parseDouble(value));
+			
+			this.listeners.stream()
+						  .forEach((listener) -> listener.dimmed(this.state));
 		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public final void addListener(final DimmerListener listener) {
+		this.listeners.add(listener);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public final void removeListener(final DimmerListener listener) {
+		this.listeners.remove(listener);
 	}
 }
