@@ -8,24 +8,30 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.felix.scr.annotations.Component;
+import org.apache.felix.scr.annotations.Property;
+import org.apache.felix.scr.annotations.Service;
+
 import be.techniquez.homeautomation.homematic.api.CCU;
 import be.techniquez.homeautomation.homematic.api.Device;
 import be.techniquez.homeautomation.homematic.api.Dimmer;
 import be.techniquez.homeautomation.homematic.api.Switch;
-import be.techniquez.homeautomation.homematic.impl.channel.CCUChannelImpl;
 
 /**
  * CCU implementation, uses XMLRPC.
  * 
  * @author alex
  */
+@Component
+@Service
+@Property(name = "service.pid", value = "CCU")
 public final class CCUImpl implements CCU {
 	
 	/** Logger instance. */
 	private static final Logger logger = Logger.getLogger(CCUImpl.class.getName());
 
 	/** The channel. */
-	private final CCUChannel channel;
+	private CCUChannel channel;
 	
 	/** The dimmers. */
 	private final List<Dimmer> dimmers = new ArrayList<>();
@@ -38,8 +44,7 @@ public final class CCUImpl implements CCU {
 	 * 
 	 * @param 	address		The CCU host.
 	 */
-	public CCUImpl(final String address) {
-		this.channel = new CCUChannelImpl(address);
+	public CCUImpl() {
 	}
 	
 	/**
@@ -90,53 +95,6 @@ public final class CCUImpl implements CCU {
 	@Override
 	public final List<Dimmer> getDimmers() {
 		return Collections.unmodifiableList(this.dimmers);
-	}
-	
-	/**
-	 * Test code.
-	 * 
-	 * @param 	args			The command line args.
-	 * 
-	 * @throws 	Exception
-	 */
-	public static void main(String[] args) throws Exception {
-		final CCU ccu = new CCUImpl("homematic");
-		ccu.connect();
-		
-
-		/*ccu.getDimmers().stream()
-						.forEach((dimmer) -> { 
-							final int value = dimmer.getDimmerValue();
-							
-							dimmer.setDimmerValue(80);
-							
-							try {
-								Thread.sleep(1000);
-							} catch (InterruptedException e) {
-								Thread.currentThread().interrupt();
-							}
-							
-							dimmer.setDimmerValue(value);
-						});
-		
-		ccu.getSwitches().stream()
-		.forEach((sw) -> { 
-			final boolean on = sw.isOn();
-			
-			sw.setOn(true);
-			
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				Thread.currentThread().interrupt();
-			}
-			
-			sw.setOn(on);
-		});*/
-		Thread.sleep(60000);
-		ccu.disconnect();
-		
-		
 	}
 
 	/**
