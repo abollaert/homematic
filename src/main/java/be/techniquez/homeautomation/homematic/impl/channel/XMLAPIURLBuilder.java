@@ -79,7 +79,7 @@ final class XMLAPIURLBuilder {
 	 * @return		The builder.
 	 */
 	final XMLAPIURLBuilder endpoint(final Endpoint endpoint) {
-		assert(endpoint != null);
+		assert endpoint != null;
 		
 		this.endpoint = endpoint;
 		

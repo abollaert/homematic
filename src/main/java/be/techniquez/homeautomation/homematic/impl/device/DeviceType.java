@@ -1,6 +1,7 @@
 package be.techniquez.homeautomation.homematic.impl.device;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import be.techniquez.homeautomation.homematic.api.Device;
@@ -12,13 +13,8 @@ import be.techniquez.homeautomation.homematic.impl.CCUChannel;
  * @author alex
  */
 public enum DeviceType {
-	DIMMER("HMW-LC-Dim1L-DR", (xml, channel) -> {
-		return Arrays.asList(new Device[] { DimmerImpl.create(xml, channel)});
-	}),
-	
-	SWITCH("HMW-IO-12-Sw7-DR", (xml, channel) -> {
-		return SwitchImpl.create(channel, xml);
-	});
+	DIMMER("HMW-LC-Dim1L-DR", (xml, channel) -> Arrays.asList(new Device[] { DimmerImpl.create(xml, channel) })),
+	SWITCH("HMW-IO-12-Sw7-DR", (xml, channel) -> SwitchImpl.create(channel, xml));
 	
 	/** The typeName. */
 	private final String typeName;
@@ -67,6 +63,6 @@ public enum DeviceType {
 			return this.factory.createDevices(xmlDevice, channel);
 		}
 		
-		return null;
+		return Collections.emptyList();
 	}
 }

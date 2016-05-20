@@ -26,7 +26,7 @@ public abstract class AbstractDevice implements Device {
 	private static final String DEVICE_TYPE = "BidCos-Wired";
 	
 	/** The CCU channel. */
-	private final CCUChannel channel;
+	private final CCUChannel ccuChannel;
 
 	/** The device name. */
 	private final String name;
@@ -60,7 +60,7 @@ public abstract class AbstractDevice implements Device {
 	 * @param	channelType		The type of the channel.
 	 */
 	protected AbstractDevice(final CCUChannel channel, final DatapointType channelType, final int channelNumber, final int iseId, final String name, final String serialNumber) {
-		this.channel = Objects.requireNonNull(channel);
+		this.ccuChannel = Objects.requireNonNull(channel);
 		this.name = Objects.requireNonNull(name);
 		this.serialNumber = Objects.requireNonNull(serialNumber);
 		this.channelNumber = channelNumber;
@@ -78,7 +78,7 @@ public abstract class AbstractDevice implements Device {
 		
 		this.address = new StringBuilder(this.serialNumber).append(":").append(this.channelNumber).toString();
 		
-		this.channel.addEventHandler((address, attribute, value) -> {
+		this.ccuChannel.addEventHandler((address, attribute, value) -> {
 			if (address.equals(this.address)) {
 				this.attributeChanged(attribute, value);
 			}
@@ -115,7 +115,7 @@ public abstract class AbstractDevice implements Device {
 		}
 		
 		try {
-			final State state = this.channel.getState(this.iseId);
+			final State state = this.ccuChannel.getState(this.iseId);
 			
 			if (logger.isLoggable(Level.INFO)) {
 				logger.log(Level.INFO, "State received, processing, using datapoint name [" + this.datapointName + "]");
@@ -124,13 +124,13 @@ public abstract class AbstractDevice implements Device {
 			if (state != null) {
 				final Channel channel = state.getDevice().getChannel()
 														 .stream()
-														 .filter((someChannel) -> (someChannel.getIseId().intValue() == this.iseId))
+														 .filter(someChannel -> someChannel.getIseId().intValue() == this.iseId)
 														 .findFirst()
 														 .orElseThrow(() -> new IllegalStateException("Cannot find channel [" + this.iseId + "] in the state XML."));
 				
 				final Datapoint datapoint = channel.getDatapoint()
 												   .stream()
-												   .filter((dataPoint) -> dataPoint.getName().equals(this.datapointName))
+												   .filter(dataPoint -> dataPoint.getName().equals(this.datapointName))
 												   .findFirst()
 												   .orElseThrow(() -> new IllegalStateException("Cannot find channel [" + this.iseId + "] in the state XML."));
 				
@@ -158,7 +158,7 @@ public abstract class AbstractDevice implements Device {
 		}
 		
 		try {
-			this.channel.setState(this.iseId, state);
+			this.ccuChannel.setState(this.iseId, state);
 		} catch (IOException e) {
 			if (logger.isLoggable(Level.WARNING)) {
 				logger.log(Level.WARNING, "IO error caught when setting state : [" + e.getMessage() + "]", e);

@@ -18,27 +18,6 @@ import be.techniquez.homeautomation.homematic.xmlapi.devicelist.Channel;
  */
 public final class SwitchImpl extends AbstractDevice implements Switch {
 	
-	/**
-	 * Creates a list of switches.
-	 * 
-	 * @param 	channel			The CCU channel.
-	 * @param 	xmlDevice		The XML device.
-	 * @return
-	 */
-	public static final List<Device> create(final CCUChannel channel, final be.techniquez.homeautomation.homematic.xmlapi.devicelist.Device xmlDevice) {
-		final List<Device> devices = new ArrayList<>();
-		
-		for (int i = 0; i < xmlDevice.getChannel().size(); i++) {
-			final Channel currentChannel = xmlDevice.getChannel().get(i);
-			
-			if (currentChannel.getName().startsWith("O_")) {
-				devices.add(new SwitchImpl(channel, (i + 1), currentChannel.getIseId().intValue(), currentChannel.getName(), xmlDevice.getAddress()));
-			}
-		}
-		
-		return devices;
-	}
-	
 	/** The state. */
 	private volatile boolean state;
 	
@@ -57,7 +36,28 @@ public final class SwitchImpl extends AbstractDevice implements Switch {
 	private SwitchImpl(final CCUChannel channel, final int channelNumber, final int iseId, final String name, final String serialNumber) {
 		super(channel, DatapointType.STATE, channelNumber, iseId, name, serialNumber);
 		
-		this.state = this.getState((value) -> Boolean.parseBoolean(value));
+		this.state = this.getState(Boolean::parseBoolean);
+	}
+	
+	/**
+	 * Creates a list of switches.
+	 * 
+	 * @param 	channel			The CCU channel.
+	 * @param 	xmlDevice		The XML device.
+	 * @return
+	 */
+	public static final List<Device> create(final CCUChannel channel, final be.techniquez.homeautomation.homematic.xmlapi.devicelist.Device xmlDevice) {
+		final List<Device> devices = new ArrayList<>();
+		
+		for (int i = 0; i < xmlDevice.getChannel().size(); i++) {
+			final Channel currentChannel = xmlDevice.getChannel().get(i);
+			
+			if (currentChannel.getName().startsWith("O_")) {
+				devices.add(new SwitchImpl(channel, i + 1, currentChannel.getIseId().intValue(), currentChannel.getName(), xmlDevice.getAddress()));
+			}
+		}
+		
+		return devices;
 	}
 
 	/**
@@ -85,7 +85,7 @@ public final class SwitchImpl extends AbstractDevice implements Switch {
 			this.state = Boolean.parseBoolean(value);
 			
 			this.listeners.stream()
-						  .forEach((listener) -> listener.stateChanged(this.state));
+						  .forEach(listener -> listener.stateChanged(this.state));
 		}
 	}
 	

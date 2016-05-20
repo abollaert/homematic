@@ -17,26 +17,6 @@ public final class DimmerImpl extends AbstractDevice implements Dimmer {
 	
 	/** Indicates the channel is a receiver. */
 	private static final String DIRECTION_RECEIVER = "RECEIVER";
-	
-	/**
-	 * Creates a new dimmer based on the given device definition.
-	 * 
-	 * @param 		xmlDevice		The XML definition.
-	 * @param		ccuChannel		The channel.
-	 * 
-	 * @return		The {@link Dimmer} device.
-	 */
-	public static final Dimmer create(final Device xmlDevice, final CCUChannel ccuChannel) {
-		final String deviceName = xmlDevice.getName();
-		final String serial = xmlDevice.getAddress();
-		final int outputChannelId = xmlDevice.getChannel().stream()
-														  .filter((channel) -> channel.getDirection().equals(DIRECTION_RECEIVER))
-														  .findFirst()
-														  .get()
-														  .getIseId().intValue();
-		
-		return new DimmerImpl(ccuChannel, deviceName, serial, outputChannelId);
-	}
 
 	/** The state. */
 	private volatile int state;
@@ -56,6 +36,26 @@ public final class DimmerImpl extends AbstractDevice implements Dimmer {
 		this.state = this.getStateFromCCU();
 	}
 
+	/**
+	 * Creates a new dimmer based on the given device definition.
+	 * 
+	 * @param 		xmlDevice		The XML definition.
+	 * @param		ccuChannel		The channel.
+	 * 
+	 * @return		The {@link Dimmer} device.
+	 */
+	public static final Dimmer create(final Device xmlDevice, final CCUChannel ccuChannel) {
+		final String deviceName = xmlDevice.getName();
+		final String serial = xmlDevice.getAddress();
+		final int outputChannelId = xmlDevice.getChannel().stream()
+														  .filter(channel -> channel.getDirection().equals(DIRECTION_RECEIVER))
+														  .findFirst()
+														  .get()
+														  .getIseId().intValue();
+		
+		return new DimmerImpl(ccuChannel, deviceName, serial, outputChannelId);
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -84,7 +84,7 @@ public final class DimmerImpl extends AbstractDevice implements Dimmer {
 	 * @return	The state returned from the CCU.
 	 */
 	private final int getStateFromCCU() {
-		return convert(this.getState((string) -> Double.parseDouble(string)));
+		return convert(this.getState(Double::parseDouble));
 	}
 	
 	/**
@@ -115,7 +115,7 @@ public final class DimmerImpl extends AbstractDevice implements Dimmer {
 			this.state = convert(Double.parseDouble(value));
 			
 			this.listeners.stream()
-						  .forEach((listener) -> listener.dimmed(this.state));
+						  .forEach(listener -> listener.dimmed(this.state));
 		}
 	}
 
