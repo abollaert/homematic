@@ -64,14 +64,7 @@ public interface CCUChannel {
 	 * 
 	 * @return	The hostname.
 	 */
-	String getHostname();
-	
-	/**
-	 * Returns the port.
-	 * 
-	 * @return	The port.
-	 */
-	int getPort();
+	String getBaseURL();
 	
 	/**
 	 * Connects the channel.
@@ -96,4 +89,11 @@ public interface CCUChannel {
 	 * @param 	handler		The handler.
 	 */
 	void removeEventHandler(final CCUChannelEventHandler handler);
+	
+	/**
+	 * Indicates whether the channel is connected.
+	 * 
+	 * @return	<code>true</code> if the channel is connected, <code>false</code> otherwise.
+	 */	
+	boolean isConnected();
 }

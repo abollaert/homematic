@@ -18,15 +18,9 @@ final class XMLAPIURLBuilder {
 	
 	/** Logger instance. */
 	private static final Logger logger = Logger.getLogger(XMLAPIURLBuilder.class.getName());
-
+	
 	/** The base URL. */
-	private static final String BASE = "/addons/xmlapi/";
-	
-	/** The CCUChannel. */
-	private final String hostname;
-	
-	/** The port. */
-	private final int port;
+	private final String baseURL;
 	
 	/** The endpoint. */
 	private Endpoint endpoint;
@@ -37,12 +31,10 @@ final class XMLAPIURLBuilder {
 	/**
 	 * Create a new instance.
 	 * 
-	 * @param 	hostname		The host name.
-	 * @param 	port			The port.
+	 * @param 	baseURL		The base URL.
 	 */
-	private XMLAPIURLBuilder(final String hostname, final int port) {
-		this.hostname = hostname;
-		this.port = port;
+	private XMLAPIURLBuilder(final String baseURL) {
+		this.baseURL = baseURL;
 	}
 	
 	/**
@@ -71,13 +63,12 @@ final class XMLAPIURLBuilder {
 	/**
 	 * Create a new URL builder for said host name and port.
 	 * 
-	 * @param 	hostname		The host name.
-	 * @param 	port			The port.
+	 * @param 	baseURL		The base URL.
 	 * 
 	 * @return	The builder.
 	 */
-	static final XMLAPIURLBuilder forHost(final String hostname, final int port) {
-		return new XMLAPIURLBuilder(hostname, port);
+	static final XMLAPIURLBuilder withBaseURL(final String baseURL) {
+		return new XMLAPIURLBuilder(baseURL);
 	}
 	
 	/**
@@ -104,11 +95,7 @@ final class XMLAPIURLBuilder {
 		assert this.endpoint != null;
 		
 		final StringBuilder urlBuilder = new StringBuilder();
-		urlBuilder.append("http://");
-		urlBuilder.append(this.hostname);
-		urlBuilder.append(":");
-		urlBuilder.append(this.port);
-		urlBuilder.append(BASE);
+		urlBuilder.append(this.baseURL);
 		urlBuilder.append(this.endpoint.cgi);
 		
 		if (this.parameters.size() > 0) {

@@ -16,7 +16,7 @@ import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.XmlRpcHandler;
 import org.apache.xmlrpc.XmlRpcRequest;
 
-import be.techniquez.homeautomation.homematic.impl.CCUEventing;
+import be.techniquez.homeautomation.homematic.impl.CCUEventLoop;
 import be.techniquez.homeautomation.homematic.impl.CCUChannel.CCUChannelEventHandler;
 
 /**
@@ -24,7 +24,7 @@ import be.techniquez.homeautomation.homematic.impl.CCUChannel.CCUChannelEventHan
  * 
  * @author alex
  */
-public final class CCUEventingImpl implements CCUEventing {
+public final class CCUEventingImpl implements CCUEventLoop {
 	
 	/** Logger. */
 	private static final Logger logger = Logger.getLogger(CCUEventingImpl.class.getName());
@@ -57,6 +57,9 @@ public final class CCUEventingImpl implements CCUEventing {
 	
 	/** The event handlers. */
 	private final Set<CCUChannelEventHandler> eventHandlers;
+	
+	/** Indicates whether we have started. */
+	private volatile boolean started;
 
 	/**
 	 * Create a new instance.
@@ -78,7 +81,7 @@ public final class CCUEventingImpl implements CCUEventing {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final void start() throws IOException {
+	public synchronized final void start() throws IOException {
 		if (logger.isLoggable(Level.INFO)) {
 			logger.log(Level.INFO, "CCU eventing : URL [" + this.url + "] : starting.");
 		}
@@ -90,6 +93,8 @@ public final class CCUEventingImpl implements CCUEventing {
 		if (this.eventClient == null) {
 			this.initXmlRpcClient();
 		}
+		
+		this.started = true;
 		
 		if (logger.isLoggable(Level.INFO)) {
 			logger.log(Level.INFO, "CCU eventing : URL [" + this.url + "] : started.");
@@ -248,6 +253,8 @@ public final class CCUEventingImpl implements CCUEventing {
 		this.eventServer = null;
 		this.eventHandler = null;
 		
+		this.started = false;
+		
 		if (logger.isLoggable(Level.INFO)) {
 			logger.log(Level.INFO, "CCU eventing : URL [" + this.url + "] : stopped.");
 		}
@@ -269,5 +276,13 @@ public final class CCUEventingImpl implements CCUEventing {
 			
 			throw new IllegalStateException("Could not determine public IP address : [" + e.getMessage() + "]", e);
 		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public final boolean isStarted() {
+		return this.started;
 	}
 }

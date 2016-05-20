@@ -7,7 +7,7 @@ import java.io.IOException;
  * 
  * @author alex
  */
-public interface CCUEventing {
+public interface CCUEventLoop {
 
 	/**
 	 * Starts processing events.
@@ -22,4 +22,11 @@ public interface CCUEventing {
 	 * @throws 	IOException		If an IO error occurs.
 	 */
 	void stop() throws IOException;
+	
+	/**
+	 * Indicates whether eventing is started.
+	 * 
+	 * @return	<code>true</code> if the event loop is running.
+	 */
+	boolean isStarted();
 }

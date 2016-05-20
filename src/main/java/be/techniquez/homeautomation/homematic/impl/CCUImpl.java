@@ -2,15 +2,10 @@ package be.techniquez.homeautomation.homematic.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Property;
-import org.apache.felix.scr.annotations.Service;
 
 import be.techniquez.homeautomation.homematic.api.CCU;
 import be.techniquez.homeautomation.homematic.api.Device;
@@ -22,9 +17,6 @@ import be.techniquez.homeautomation.homematic.api.Switch;
  * 
  * @author alex
  */
-@Component
-@Service
-@Property(name = "service.pid", value = "CCU")
 public final class CCUImpl implements CCU {
 	
 	/** Logger instance. */
@@ -39,42 +31,54 @@ public final class CCUImpl implements CCU {
 	/** The switches. */
 	private final List<Switch> switches = new ArrayList<>();
 	
+	/** Indicates whether the CCU is connected. */
+	private volatile boolean connected;
+	
 	/**
 	 * Create a new instance.
 	 * 
-	 * @param 	address		The CCU host.
+	 * @param 	channel		The CCU channel.
 	 */
-	public CCUImpl() {
+	public CCUImpl(final CCUChannel channel) {
+		this.channel = channel;
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final void connect() throws IOException {
-		if (logger.isLoggable(Level.INFO)) {
-			logger.log(Level.INFO, "CCU [" + this.channel.getHostname() + ":" + this.channel.getPort() + "] : loading devices.");
-		}
-		
-		this.channel.connect();
-		
-		final List<Device> devices = this.channel.getDevices();
-		
-		if (logger.isLoggable(Level.INFO)) {
-			logger.log(Level.INFO, "Device list received, processing.");
-		}
-		
-		devices.stream()
-			   .forEach((device) -> {
-				   if (device instanceof Dimmer) {
-					   this.dimmers.add((Dimmer)device);
-				   } else if (device instanceof Switch) {
-					   this.switches.add((Switch)device);
-				   }
-			   });
-		
-		if (logger.isLoggable(Level.INFO)) {
-			logger.log(Level.INFO, "Found : [" + this.dimmers.size() + "] dimmers, [" + this.switches.size() + "] switches.");
+	public synchronized final void connect() throws IOException {
+		if (!this.isConnected()) {
+			if (logger.isLoggable(Level.INFO)) {
+				logger.log(Level.INFO, "CCU [" + this.channel.getBaseURL() + "] : loading devices.");
+			}
+			
+			this.channel.connect();
+			
+			final List<Device> devices = this.channel.getDevices();
+			
+			if (logger.isLoggable(Level.INFO)) {
+				logger.log(Level.INFO, "Device list received, processing.");
+			}
+			
+			devices.stream()
+				   .forEach((device) -> {
+					   if (device instanceof Dimmer) {
+						   this.dimmers.add((Dimmer)device);
+					   } else if (device instanceof Switch) {
+						   this.switches.add((Switch)device);
+					   }
+				   });
+			
+			this.connected = true;
+			
+			if (logger.isLoggable(Level.INFO)) {
+				logger.log(Level.INFO, "Found : [" + this.dimmers.size() + "] dimmers, [" + this.switches.size() + "] switches.");
+			}
+		} else {
+			if (logger.isLoggable(Level.INFO)) {
+				logger.log(Level.INFO, "Tried to connect when already connected.");
+			}
 		}
 	}
 	
@@ -101,8 +105,8 @@ public final class CCUImpl implements CCU {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final Collection<Switch> getSwitches() {
-		return this.switches;
+	public final List<Switch> getSwitches() {
+		return Collections.unmodifiableList(this.switches);
 	}
 
 	/**
@@ -120,7 +124,33 @@ public final class CCUImpl implements CCU {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final void disconnect() throws IOException {
-		this.channel.disconnect();
+	public synchronized final void disconnect() throws IOException {
+		if (this.isConnected()) {
+			if (logger.isLoggable(Level.INFO)) {
+				logger.log(Level.INFO, "CCU [" + this.channel.getBaseURL() + "] : disconnecting.");
+			}
+			
+			this.channel.disconnect();
+			this.connected = false;
+			
+			this.dimmers.clear();
+			this.switches.clear();
+			
+			if (logger.isLoggable(Level.INFO)) {
+				logger.log(Level.INFO, "CCU [" + this.channel.getBaseURL() + "] : disconnected.");
+			}
+		} else {
+			if (logger.isLoggable(Level.WARNING)) {
+				logger.log(Level.WARNING, "Tried to disconnect while not connected.");
+			}
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public final boolean isConnected() {
+		return this.connected;
 	}
 }

@@ -2,6 +2,7 @@ package be.techniquez.homeautomation.homematic.api;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Interface for a CCU.
@@ -25,6 +26,13 @@ public interface CCU {
 	void disconnect() throws IOException;
 	
 	/**
+	 * Indicates whether or not the CCU is connected.
+	 * 
+	 * @return	<code>true</code> if it is connected, <code>false</code> otherwise.
+	 */
+	boolean isConnected();
+	
+	/**
 	 * Returns all the dimmers known to the system.
 	 * 
 	 * @return	The dimmers known to the system.
@@ -36,7 +44,7 @@ public interface CCU {
 	 * 
 	 * @return	The switches.
 	 */
-	Collection<Switch> getSwitches();
+	List<Switch> getSwitches();
 	
 	/**
 	 * Returns the particular dimmer.

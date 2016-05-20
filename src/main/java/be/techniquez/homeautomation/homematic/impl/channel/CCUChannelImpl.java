@@ -16,7 +16,7 @@ import javax.xml.bind.Unmarshaller;
 
 import be.techniquez.homeautomation.homematic.api.Device;
 import be.techniquez.homeautomation.homematic.impl.CCUChannel;
-import be.techniquez.homeautomation.homematic.impl.CCUEventing;
+import be.techniquez.homeautomation.homematic.impl.CCUEventLoop;
 import be.techniquez.homeautomation.homematic.impl.channel.XMLAPIURLBuilder.Endpoint;
 import be.techniquez.homeautomation.homematic.impl.device.DeviceType;
 import be.techniquez.homeautomation.homematic.impl.event.CCUEventingImpl;
@@ -42,6 +42,9 @@ public final class CCUChannelImpl implements CCUChannel {
 
 	/** The new value parameter. */
 	private static final String PARAMETER_NEW_VALUE = "new_value";
+	
+	/** The base URL. */
+	private static final String BASE = "/addons/xmlapi/";
 
 	/** The default port. */
 	private static final int DEFAULT_PORT = 80;
@@ -50,13 +53,10 @@ public final class CCUChannelImpl implements CCUChannel {
 	private static final int DEFAULT_EVENT_PORT = 2000;
 
 	/** The host name of the CCU. */
-	private final String hostname;
-
-	/** The port the API is running on. */
-	private final int port;
+	private final String urlBase;
 
 	/** The eventing. */
-	private CCUEventing eventing;
+	private CCUEventLoop eventing;
 	
 	/** The event handlers. */
 	private final Set<CCUChannelEventHandler> eventHandlers = new HashSet<>();
@@ -64,14 +64,17 @@ public final class CCUChannelImpl implements CCUChannel {
 	/**
 	 * Create a new instance.
 	 * 
-	 * @param hostname
-	 *            The hostname.
-	 * @param port
-	 *            The port.
+	 * @param 	hostname	The hostname.
+	 * @param 	port		The port to send requests on.
+	 * @param	eventPort	The eventing port.
 	 */
 	public CCUChannelImpl(final String hostname, final int port, final int eventPort) {
-		this.hostname = hostname;
-		this.port = port;
+		this.urlBase = new StringBuilder("http://").append(hostname)
+												   .append(":")
+												   .append(port)
+												   .append(BASE)
+												   .toString();
+		
 		this.eventing = new CCUEventingImpl(hostname, eventPort, this.eventHandlers);
 	}
 
@@ -90,28 +93,23 @@ public final class CCUChannelImpl implements CCUChannel {
 	 */
 	@Override
 	public final List<Device> getDevices() throws IOException {
-		final URL url = XMLAPIURLBuilder.forHost(this.hostname, this.port).endpoint(Endpoint.DEVICELIST).build();
+		final URL url = XMLAPIURLBuilder.withBaseURL(this.urlBase)
+										.endpoint(Endpoint.DEVICELIST)
+										.build();
 
-		return parseJAXB(url, DeviceList.class).getDevice().stream()
-				.filter(xml -> DeviceType.forName(xml.getDeviceType()) != null)
-				.flatMap(xml -> DeviceType.forName(xml.getDeviceType()).parse(xml, this).stream())
-				.collect(Collectors.toList());
+		return doRequest(url, DeviceList.class).getDevice()
+											   .stream()
+											   .filter(xml -> DeviceType.forName(xml.getDeviceType()) != null)
+											   .flatMap(xml -> DeviceType.forName(xml.getDeviceType()).parse(xml, this).stream())
+											   .collect(Collectors.toList());
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final String getHostname() {
-		return this.hostname;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public final int getPort() {
-		return this.port;
+	public final String getBaseURL() {
+		return this.urlBase;
 	}
 
 	/**
@@ -119,10 +117,12 @@ public final class CCUChannelImpl implements CCUChannel {
 	 */
 	@Override
 	public final State getState(final int channelId) throws IOException {
-		final URL url = XMLAPIURLBuilder.forHost(this.hostname, this.port).endpoint(Endpoint.GET_STATE)
-				.parameter(PARAMETER_CHANNEL_ID, channelId).build();
+		final URL url = XMLAPIURLBuilder.withBaseURL(this.urlBase)
+										.endpoint(Endpoint.GET_STATE)
+										.parameter(PARAMETER_CHANNEL_ID, channelId)
+										.build();
 
-		return parseJAXB(url, State.class);
+		return doRequest(url, State.class);
 	}
 
 	/**
@@ -130,10 +130,13 @@ public final class CCUChannelImpl implements CCUChannel {
 	 */
 	@Override
 	public final void setState(int channelId, String newValue) throws IOException {
-		final URL url = XMLAPIURLBuilder.forHost(this.hostname, this.port).endpoint(Endpoint.STATECHANGE)
-				.parameter(PARAMETER_ISE_ID, channelId).parameter(PARAMETER_NEW_VALUE, newValue).build();
+		final URL url = XMLAPIURLBuilder.withBaseURL(this.urlBase)
+										.endpoint(Endpoint.STATECHANGE)
+										.parameter(PARAMETER_ISE_ID, channelId)
+										.parameter(PARAMETER_NEW_VALUE, newValue)
+										.build();
 
-		final Result result = parseJAXB(url, Result.class);
+		final Result result = doRequest(url, Result.class);
 
 		if (result.getChanged() == null) {
 			if (logger.isLoggable(Level.WARNING)) {
@@ -145,19 +148,17 @@ public final class CCUChannelImpl implements CCUChannel {
 	/**
 	 * Parses the response as JAXB.
 	 * 
-	 * @param url
-	 *            The URL.
-	 * @param pkg
-	 *            The package of the JAXB generated code.
+	 * @param url			The URL.
+	 * @param responseType	The type of the response.
 	 * 
 	 * @return The parsed data.
 	 */
-	private static final <T> T parseJAXB(final URL url, final Class<T> clazz) {
+	private static final <T> T doRequest(final URL url, final Class<T> responseType) {
 		try (final InputStream stream = url.openStream()) {
-			final JAXBContext jaxbContext = JAXBContext.newInstance(clazz.getPackage().getName());
+			final JAXBContext jaxbContext = JAXBContext.newInstance(responseType.getPackage().getName());
 			final Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
-			return clazz.cast(unmarshaller.unmarshal(stream));
+			return responseType.cast(unmarshaller.unmarshal(stream));
 		} catch (JAXBException | IOException e) {
 			if (logger.isLoggable(Level.WARNING)) {
 				logger.log(Level.WARNING, "Error while parsing : [" + e.getMessage() + "]", e);
@@ -173,7 +174,6 @@ public final class CCUChannelImpl implements CCUChannel {
 	@Override
 	public final void connect() throws IOException {
 		this.eventing.start();
-
 	}
 
 	/**
@@ -198,5 +198,13 @@ public final class CCUChannelImpl implements CCUChannel {
 	@Override
 	public final void removeEventHandler(final CCUChannelEventHandler handler) {
 		this.eventHandlers.remove(handler);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public final boolean isConnected() {
+		return this.eventing.isStarted();
 	}
 }
