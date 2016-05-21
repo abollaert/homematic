@@ -6,6 +6,4 @@ package be.techniquez.homeautomation.homematic.impl.event;
  * @author alex
  */
 public final class CCUEventingImplTest {
-
-	public final void testEventing
 }
