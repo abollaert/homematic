@@ -34,7 +34,7 @@ final class XMLAPIURLBuilder {
 	 * @param 	baseURL		The base URL.
 	 */
 	private XMLAPIURLBuilder(final String baseURL) {
-		this.baseURL = baseURL;
+		this.baseURL = Objects.requireNonNull(baseURL);
 	}
 	
 	/**
@@ -58,6 +58,15 @@ final class XMLAPIURLBuilder {
 		private Endpoint(final String cgi) {
 			this.cgi = cgi;
 		}
+		
+		/**
+		 * Returns the cgi.
+		 * 
+		 * @return	The cgi.
+		 */
+		final String getCGI() {
+			return this.cgi;
+		}
 	}
 	
 	/**
@@ -79,9 +88,7 @@ final class XMLAPIURLBuilder {
 	 * @return		The builder.
 	 */
 	final XMLAPIURLBuilder endpoint(final Endpoint endpoint) {
-		assert endpoint != null;
-		
-		this.endpoint = endpoint;
+		this.endpoint = Objects.requireNonNull(endpoint);
 		
 		return this;
 	}
@@ -92,11 +99,14 @@ final class XMLAPIURLBuilder {
 	 * @return	The URL.
 	 */
 	final URL build() {
-		assert this.endpoint != null;
-		
 		final StringBuilder urlBuilder = new StringBuilder();
 		urlBuilder.append(this.baseURL);
-		urlBuilder.append(this.endpoint.cgi);
+		
+		if (!this.baseURL.endsWith("/")) {
+			urlBuilder.append("/");
+		}
+		
+		urlBuilder.append(this.endpoint.getCGI());
 		
 		if (this.parameters.size() > 0) {
 			urlBuilder.append("?");
