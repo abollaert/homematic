@@ -3,9 +3,7 @@ package be.techniquez.homeautomation.homematic.impl.channel;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -57,9 +55,6 @@ public final class CCUChannelImpl implements CCUChannel {
 
 	/** The eventing. */
 	private CCUEventLoop eventing;
-	
-	/** The event handlers. */
-	private final Set<CCUChannelEventHandler> eventHandlers = new HashSet<>();
 
 	/**
 	 * Create a new instance.
@@ -75,7 +70,7 @@ public final class CCUChannelImpl implements CCUChannel {
 												   .append(BASE)
 												   .toString();
 		
-		this.eventing = new CCUEventingImpl(hostname, eventPort, this.eventHandlers);
+		this.eventing = new CCUEventingImpl(hostname, eventPort);
 	}
 
 	/**
@@ -189,7 +184,7 @@ public final class CCUChannelImpl implements CCUChannel {
 	 */
 	@Override
 	public final void addEventHandler(final CCUChannelEventHandler handler) {
-		this.eventHandlers.add(handler);
+		this.eventing.addEventHandler(handler);
 	}
 
 	/**
@@ -197,7 +192,7 @@ public final class CCUChannelImpl implements CCUChannel {
 	 */
 	@Override
 	public final void removeEventHandler(final CCUChannelEventHandler handler) {
-		this.eventHandlers.remove(handler);
+		this.eventing.removeEventHandler(handler);
 	}
 
 	/**

@@ -1,9 +1,9 @@
 package be.techniquez.homeautomation.homematic.impl.event;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Objects;
 import java.util.Set;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -16,8 +16,8 @@ import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.XmlRpcHandler;
 import org.apache.xmlrpc.XmlRpcRequest;
 
-import be.techniquez.homeautomation.homematic.impl.CCUEventLoop;
 import be.techniquez.homeautomation.homematic.impl.CCUChannel.CCUChannelEventHandler;
+import be.techniquez.homeautomation.homematic.impl.CCUEventLoop;
 
 /**
  * Eventing implementation.
@@ -43,20 +43,20 @@ public final class CCUEventingImpl implements CCUEventLoop {
 	 */
 	private final String url;
 	
+	/** The server URL. */
+	private final String serverURL;
+	
 	/** The event client socket. */
 	private XmlRpcClient eventClient;
 	
 	/** The event server. */
 	private WebServer eventServer;
 	
-	/** The server URL. */
-	private String serverURL;
-	
 	/** The event handler. */
 	private XmlRpcHandler eventHandler;
 	
 	/** The event handlers. */
-	private final Set<CCUChannelEventHandler> eventHandlers;
+	private final Set<CCUChannelEventHandler> eventHandlers = new HashSet<>();
 	
 	/** Indicates whether we have started. */
 	private volatile boolean started;
@@ -67,37 +67,46 @@ public final class CCUEventingImpl implements CCUEventLoop {
 	 * @param 	hostname		The host name.
 	 * @param 	port			The port.
 	 */
-	public CCUEventingImpl(final String hostname, final int port, final Set<CCUChannelEventHandler> handlers) {
+	public CCUEventingImpl(final String hostname, final int port) {
 		this.url = new StringBuilder("http://").append(hostname)
 											   .append(":")
 											   .append(port)
 											   .append("/")
 											   .toString();
 		
-		this.eventHandlers = handlers;
+		this.serverURL = new StringBuilder("http://").append(hostname)
+				 									 .append(":")
+				 									 .append(EVENT_PORT)
+				 									 .toString();
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public synchronized final void start() throws IOException {
-		if (logger.isLoggable(Level.INFO)) {
-			logger.log(Level.INFO, "CCU eventing : URL [" + this.url + "] : starting.");
-		}
-		
-		if (this.eventServer == null) {
-			this.initXmlRpcServer(this.getPublicInetAddress());
-		}
-		
-		if (this.eventClient == null) {
-			this.initXmlRpcClient();
-		}
-		
-		this.started = true;
-		
-		if (logger.isLoggable(Level.INFO)) {
-			logger.log(Level.INFO, "CCU eventing : URL [" + this.url + "] : started.");
+	public final synchronized void start() throws IOException {
+		if (!this.isStarted()) {
+			if (logger.isLoggable(Level.INFO)) {
+				logger.log(Level.INFO, "CCU eventing : URL [" + this.url + "] : starting.");
+			}
+			
+			if (this.eventServer == null) {
+				this.initXmlRpcServer();
+			}
+			
+			if (this.eventClient == null) {
+				this.initXmlRpcClient();
+			}
+			
+			this.started = true;
+			
+			if (logger.isLoggable(Level.INFO)) {
+				logger.log(Level.INFO, "CCU eventing : URL [" + this.url + "] : started.");
+			}
+		} else {
+			if (logger.isLoggable(Level.WARNING)) {
+				logger.log(Level.WARNING, "Tried to start me when already started.");
+			}
 		}
 	}
 	
@@ -134,32 +143,15 @@ public final class CCUEventingImpl implements CCUEventLoop {
 	/**
 	 * Initializes the XML RPC server. Must be done before {@link #initXmlRpcClient()}.
 	 */
-	@SuppressWarnings("unchecked")
-	private final void initXmlRpcServer(final InetAddress address) {
-		this.serverURL = new StringBuilder("http://").append(address.getHostAddress())
-													 .append(":")
-													 .append(EVENT_PORT)
-													 .toString();
-		
+	private final void initXmlRpcServer() {
 		this.eventServer = new WebServer(EVENT_PORT);
-		
-		this.eventHandler = ((method, parameters) -> {
-			if (method != null) {
-				if (method.equals(METHOD_EVENT)) {
-					this.handleEvent(parameters);
-				} else if (method.equals(METHOD_MULTICALL)) {
-					this.handleMulticall(parameters);
-				}
-			}
-			
-			return null;
-		});
+		this.eventHandler = this::dispatchEvent;
 		
 		if (logger.isLoggable(Level.INFO)) {
 			logger.log(Level.INFO, "CCU Eventing RPC server : starting.");
 		}
 		
-		this.eventServer.addHandler("$default", eventHandler);
+		this.eventServer.addHandler("$default", this.eventHandler);
 		this.eventServer.start();
 		
 		if (logger.isLoggable(Level.INFO)) {
@@ -168,22 +160,40 @@ public final class CCUEventingImpl implements CCUEventLoop {
 	}
 	
 	/**
+	 * Dispatch the event or multicall.
+	 * 
+	 * @param 	method			The method.
+	 * @param 	parameters		The parameters.
+	 * 
+	 * @return	<code>null</code>.
+	 */
+	private final Object dispatchEvent(final String method, final Vector<?> parameters) {
+		if (method != null) {
+			if (method.equals(METHOD_EVENT)) {
+				this.handleEvent(parameters);
+			} else if (method.equals(METHOD_MULTICALL)) {
+				this.handleMulticall(parameters);
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
 	 * Handles an incoming multicall.
 	 * 
 	 * @param 	parameters		The parameters of the multicall.
 	 */
-	private final void handleMulticall(final Vector<Object> parameters) {
+	private final void handleMulticall(final Vector<?> parameters) {
 		for (final Object methodCalls : parameters) {
-			@SuppressWarnings("unchecked")
-			final Vector<Object> calls = (Vector<Object>)methodCalls;
+			final Vector<?> calls = (Vector<?>)methodCalls;
 			
 			for (final Object call : calls) {
 				@SuppressWarnings("unchecked")
-				final Hashtable<String, Object> callParams = (Hashtable<String, Object>)call;
+				final Hashtable<String, ?> callParams = (Hashtable<String, ?>)call;
 				
 				final String methodName = (String)callParams.get("methodName");
-				@SuppressWarnings("unchecked")
-				final Vector<Object> params = (Vector<Object>)callParams.get("params");
+				final Vector<?> params = (Vector<?>)callParams.get("params");
 				
 				try {
 					this.eventHandler.execute(methodName, params);
@@ -201,7 +211,7 @@ public final class CCUEventingImpl implements CCUEventLoop {
 	 * 
 	 * @param 	parameters		The event parameters.
 	 */
-	private final void handleEvent(final Vector<Object> parameters) {
+	private final void handleEvent(final Vector<?> parameters) {
 		if (parameters.size() == 4) {
 			final String address = (String)parameters.get(1);
 			final String attribute = (String)parameters.get(2);
@@ -211,7 +221,7 @@ public final class CCUEventingImpl implements CCUEventLoop {
 				logger.log(Level.INFO, "CCU eventing : event received for [" + address + "] : attribute [" + attribute + "] - value [" + value + "]");
 			}
 			
-			this.eventHandlers.stream().forEach((handler) -> handler.eventReceived(address, attribute, value));
+			this.eventHandlers.forEach(handler -> handler.eventReceived(address, attribute, value));
 		}
 	}
 	
@@ -219,62 +229,50 @@ public final class CCUEventingImpl implements CCUEventLoop {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final void stop() throws IOException {
-		if (logger.isLoggable(Level.INFO)) {
-			logger.log(Level.INFO, "CCU eventing : URL [" + this.url + "] : stopping.");
-		}
-		
-		final Vector<String> parameters = new Vector<>();
-		parameters.add(this.serverURL);
-		parameters.add("");
-		
-		if (this.eventClient != null) {
-			try {
-				final XmlRpcClientRequest initRequest = new XmlRpcRequest("init", parameters);
-				final Object response = this.eventClient.execute(initRequest);
-				
-				if (logger.isLoggable(Level.INFO)) {
-					logger.log(Level.INFO, "CCU Eventing RPC client : init (disconnect) called, response [" + response + "]");
-				}
-			} catch (XmlRpcException e) {
-				if (logger.isLoggable(Level.WARNING)) {
-					logger.log(Level.WARNING, "Error disconnecting callbacks : [" + e.getMessage() + "]", e);
-				}
-				
-				throw new IllegalStateException("Error disconnecting callbacks : [" + e.getMessage() + "]", e);
-			}
-		}
-		
-		if (this.eventServer != null) {
-			this.eventServer.shutdown();
-		}
-		
-		this.eventClient = null;
-		this.eventServer = null;
-		this.eventHandler = null;
-		
-		this.started = false;
-		
-		if (logger.isLoggable(Level.INFO)) {
-			logger.log(Level.INFO, "CCU eventing : URL [" + this.url + "] : stopped.");
-		}
-	}
-	
-	/**
-	 * Returns the public IP address.
-	 * 
-	 * @return	Thye public IP address.
-	 */
-	private final InetAddress getPublicInetAddress() {
-		try {
-			// FIXME : make it configurable.
-			return InetAddress.getByName("192.168.100.12");
-		} catch (UnknownHostException e) {
-			if (logger.isLoggable(Level.WARNING)) {
-				logger.log(Level.WARNING, "Could not determine public IP address : [" + e.getMessage() + "]", e);
+	public final synchronized void stop() throws IOException {
+		if (this.isStarted()) {
+			if (logger.isLoggable(Level.INFO)) {
+				logger.log(Level.INFO, "CCU eventing : URL [" + this.url + "] : stopping.");
 			}
 			
-			throw new IllegalStateException("Could not determine public IP address : [" + e.getMessage() + "]", e);
+			final Vector<String> parameters = new Vector<>();
+			parameters.add(this.serverURL);
+			parameters.add("");
+			
+			if (this.eventClient != null) {
+				try {
+					final XmlRpcClientRequest initRequest = new XmlRpcRequest("init", parameters);
+					final Object response = this.eventClient.execute(initRequest);
+					
+					if (logger.isLoggable(Level.INFO)) {
+						logger.log(Level.INFO, "CCU Eventing RPC client : init (disconnect) called, response [" + response + "]");
+					}
+				} catch (XmlRpcException e) {
+					if (logger.isLoggable(Level.WARNING)) {
+						logger.log(Level.WARNING, "Error disconnecting callbacks : [" + e.getMessage() + "]", e);
+					}
+					
+					throw new IllegalStateException("Error disconnecting callbacks : [" + e.getMessage() + "]", e);
+				}
+			}
+			
+			if (this.eventServer != null) {
+				this.eventServer.shutdown();
+			}
+			
+			this.eventClient = null;
+			this.eventServer = null;
+			this.eventHandler = null;
+			
+			this.started = false;
+			
+			if (logger.isLoggable(Level.INFO)) {
+				logger.log(Level.INFO, "CCU eventing : URL [" + this.url + "] : stopped.");
+			}
+		} else {
+			if (logger.isLoggable(Level.WARNING)) {
+				logger.log(Level.WARNING, "Tried to stop me when already stopped.");
+			}			
 		}
 	}
 
@@ -284,5 +282,21 @@ public final class CCUEventingImpl implements CCUEventLoop {
 	@Override
 	public final boolean isStarted() {
 		return this.started;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public final void addEventHandler(final CCUChannelEventHandler handler) {
+		this.eventHandlers.add(Objects.requireNonNull(handler));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public final void removeEventHandler(final CCUChannelEventHandler handler) {
+		this.eventHandlers.remove(Objects.requireNonNull(handler));
 	}
 }
